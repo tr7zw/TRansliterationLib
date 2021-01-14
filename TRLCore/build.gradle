@@ -4,6 +4,9 @@ apply plugin: 'maven-publish'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+version = project.mod_version
+group = project.maven_group
+
 repositories {
     jcenter()
 	maven { url 'https://libraries.minecraft.net/' }
