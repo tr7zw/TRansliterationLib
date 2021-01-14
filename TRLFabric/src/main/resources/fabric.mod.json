@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "de.tr7zw.transliterationlib.fabric.TRansliterationLibMod"
+      "dev.tr7zw.transliterationlib.fabric.TRansliterationLibMod"
     ]
   },
   "mixins": [
