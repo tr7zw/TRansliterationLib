@@ -14,6 +14,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Gradle
+      run: chmod +x gradlew
       run: ./gradlew build
     - name: Upload Artifact
       uses: actions/upload-artifact@v2-preview
