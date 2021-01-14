@@ -1,0 +1,17 @@
+pluginManagement {
+    repositories {
+        jcenter()
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'TRansliterationLib'
+
+include 'TRLCore'
+include 'TRLFabric'
+include 'TRLForge'
+include 'TRLCombined'

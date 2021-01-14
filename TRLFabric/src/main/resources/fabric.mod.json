@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "transliterationlib",
+  "version": "1.0.0-SNAPSHOT",
+  "name": "TRansliterationLib",
+  "description": "Creating multi modloader mods.",
+  "authors": [
+    "tr7zw"
+  ],
+  "contact": {
+    "homepage": "https://github.com/tr7zw/TRansliterationLib",
+    "sources": "https://github.com/tr7zw/TRansliterationLib"
+  },
+  "license": "MIT",
+  "icon": "assets/transliterationlib/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "de.tr7zw.transliterationlib.fabric.TRansliterationLibMod"
+    ]
+  },
+  "mixins": [
+    "transliterationlib.mixins.json"
+  ]
+}
