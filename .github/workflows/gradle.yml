@@ -21,4 +21,4 @@ jobs:
       uses: actions/upload-artifact@v2-preview
       with:
         name: TRansliterationLib
-        path: Combined/build/libs/*.jar
+        path: TRLCombined/build/libs/*.jar
