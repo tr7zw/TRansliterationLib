@@ -40,6 +40,7 @@ class ArrayBackedEvent<T> extends TREvent<T> {
 		update();
 	}
 
+	@SuppressWarnings("unchecked")
 	void update() {
 		if (handlers == null) {
 			if (dummyInvoker != null) {
