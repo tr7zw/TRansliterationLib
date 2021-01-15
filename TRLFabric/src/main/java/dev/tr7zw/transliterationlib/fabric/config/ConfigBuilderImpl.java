@@ -5,11 +5,7 @@ import java.util.function.Function;
 
 import dev.tr7zw.transliterationlib.api.TRansliterationLib;
 import dev.tr7zw.transliterationlib.api.config.ConfigBuilder;
-import dev.tr7zw.transliterationlib.api.config.ConfigBuilder.ConfigEntryBuilder;
-import dev.tr7zw.transliterationlib.api.config.ConfigBuilder.ConfigEntryBuilder.BooleanSelectorBuilder;
 import dev.tr7zw.transliterationlib.api.config.ConfigBuilder.ConfigEntryBuilder.ConfigCategory;
-import dev.tr7zw.transliterationlib.api.config.ConfigBuilder.ConfigEntryBuilder.EnumSelectorBuilder;
-import dev.tr7zw.transliterationlib.api.config.ConfigBuilder.ConfigEntryBuilder.IntSliderBuilder;
 import dev.tr7zw.transliterationlib.api.config.WrappedConfigEntry;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedScreen;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedText;
