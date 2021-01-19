@@ -2,7 +2,7 @@ package dev.tr7zw.transliterationlib.api.wrapper;
 
 import dev.tr7zw.transliterationlib.api.config.WrappedConfigEntry;
 
-public interface Wrapper {
+public interface OldWrapper {
 
 	public WrappedScreen wrapScreen(Object screen);
 	

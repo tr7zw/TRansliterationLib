@@ -110,6 +110,7 @@ dependencies {
 
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
+    exclude('fabric.mod.json')
     manifest {
         attributes([
                 "Specification-Title": "${modid}",

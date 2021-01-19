@@ -9,7 +9,7 @@ import dev.tr7zw.transliterationlib.api.wrapper.WrappedKeybind;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedScreen;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedText;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedWorld;
-import dev.tr7zw.transliterationlib.api.wrapper.Wrapper;
+import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
 import me.shedaniel.clothconfig2.forge.api.AbstractConfigEntry;
 import me.shedaniel.clothconfig2.forge.gui.entries.EnumListEntry;
 import me.shedaniel.clothconfig2.forge.gui.entries.IntegerSliderEntry;
@@ -21,7 +21,7 @@ import net.minecraft.network.play.server.SEntityMetadataPacket;
 import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class WrapperImpl implements Wrapper{
+public class WrapperImpl implements OldWrapper{
 
 	@Override
 	public WrappedScreen wrapScreen(Object screen) {

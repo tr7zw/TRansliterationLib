@@ -21,7 +21,7 @@ public class PlayerSkinProviderMixin {
 	
 	@Inject(method =  "Lnet/minecraft/client/texture/PlayerSkinProvider;loadSkin(Lcom/mojang/authlib/GameProfile;Lnet/minecraft/client/texture/PlayerSkinProvider$SkinTextureAvailableCallback;Z)V", at = @At("HEAD"), cancellable = true)
 	public void loadSkin(GameProfile profile, SkinTextureAvailableCallback callback, boolean requireSecure, CallbackInfo info) {
-		PlayerEvents.SKIN_RESOLVE.invoker().onSkinResolve(profile, requireSecure, info);
+		PlayerEvents.SKIN_RESOLVE.invoker().onSkinResolve(sessionService, profile, requireSecure, info);
 	}
 	
 }
