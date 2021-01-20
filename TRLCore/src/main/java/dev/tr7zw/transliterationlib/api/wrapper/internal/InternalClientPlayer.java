@@ -1,5 +1,5 @@
 package dev.tr7zw.transliterationlib.api.wrapper.internal;
 
-public interface InternalClientPlayer extends InternalPlayer{
+public interface InternalClientPlayer{
 
 }

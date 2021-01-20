@@ -1,6 +1,6 @@
 package dev.tr7zw.transliterationlib.api.wrapper.api;
 
-public abstract class AbstractWrapper<T, I extends AbstractWrapper<T, I, J>, J extends HandleHolder<?>> implements NativeWrapper<T, I, J> {
+public abstract class AbstractWrapper<T, I extends AbstractWrapper<T, I, J>, J extends HandleHolder<J>> implements NativeWrapper<T, I, J> {
 
 	private T handler;
 
