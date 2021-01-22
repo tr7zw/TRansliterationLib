@@ -12,5 +12,10 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 	public int getId() {
 		return handle().getEntityId();
 	}
+
+	@Override
+	public boolean hasVehicle() {
+		return handle().hasVehicle();
+	}
 	
 }
