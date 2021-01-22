@@ -4,6 +4,7 @@ import dev.tr7zw.transliterationlib.api.config.ConfigBuilder;
 import dev.tr7zw.transliterationlib.api.registry.Keybindings;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.Constructors;
+import dev.tr7zw.transliterationlib.api.wrapper.api.EnumWrapper;
 
 /**
  * Used to wrap NMS and other mods like ClothConfig for Modloader independed usage.
@@ -20,6 +21,8 @@ public interface TRansliterationLibAPI {
 	public Keybindings getKeybindings();
 	
 	public Constructors constructors();
+	
+	public EnumWrapper getEnumWrapper();
 	
 	public dev.tr7zw.transliterationlib.api.wrapper.api.Wrapper singletonWrapper();
 	

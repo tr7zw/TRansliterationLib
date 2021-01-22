@@ -5,6 +5,7 @@ import dev.tr7zw.transliterationlib.api.config.ConfigBuilder;
 import dev.tr7zw.transliterationlib.api.registry.Keybindings;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.Constructors;
+import dev.tr7zw.transliterationlib.api.wrapper.api.EnumWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.Wrapper;
 import dev.tr7zw.transliterationlib.fabric.config.ConfigBuilderImpl;
 import dev.tr7zw.transliterationlib.fabric.registry.KeybindingsImpl;
@@ -12,6 +13,7 @@ import dev.tr7zw.transliterationlib.fabric.wrapper.WrapperImpl;
 import dev.tr7zw.transliterationlib.fabric.wrapper.api.ConstructorImpl;
 import dev.tr7zw.transliterationlib.fabric.wrapper.api.NormalWrapper;
 import dev.tr7zw.transliterationlib.fabric.wrapper.api.SingletonWrapper;
+import dev.tr7zw.transliterationlib.fabric.wrapper.api.TRLEnumWrapper;
 
 public class TRansliterationLibAPIFabricImpl implements TRansliterationLibAPI {
 
@@ -20,6 +22,7 @@ public class TRansliterationLibAPIFabricImpl implements TRansliterationLibAPI {
 	private final Wrapper singletonWrapper = new SingletonWrapper();
 	private final Wrapper creationWrapper = new NormalWrapper();
 	private final Constructors constructors = new ConstructorImpl(creationWrapper);
+	private final EnumWrapper enumWrapper = new TRLEnumWrapper();
 	
 	@Override
 	public OldWrapper getWrapper() {
@@ -49,6 +52,11 @@ public class TRansliterationLibAPIFabricImpl implements TRansliterationLibAPI {
 	@Override
 	public Wrapper creationWrapper() {
 		return creationWrapper;
+	}
+
+	@Override
+	public EnumWrapper getEnumWrapper() {
+		return enumWrapper;
 	}
 
 }
