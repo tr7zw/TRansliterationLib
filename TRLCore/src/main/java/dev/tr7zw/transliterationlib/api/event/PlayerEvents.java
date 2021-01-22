@@ -11,6 +11,7 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 import dev.tr7zw.transliterationlib.api.event.api.TREvent;
 import dev.tr7zw.transliterationlib.api.event.api.TREventFactory;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.ClientPlayer;
+import dev.tr7zw.transliterationlib.api.wrapper.entity.Player;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
 import dev.tr7zw.transliterationlib.api.wrapper.util.WrappedCallbackInfoReturnable;
 
@@ -58,6 +59,17 @@ public class PlayerEvents {
 	@FunctionalInterface
 	public interface GetDefaultSkinEvent {
 		void getSkin(UUID uuid, WrappedCallbackInfoReturnable<Identifier> info);
+	}
+	
+	public static final TREvent<PlayerTickEvent> PLAYER_TICK_END = TREventFactory.createArrayBacked(PlayerTickEvent.class, callbacks -> (player, info) -> {
+		for (PlayerTickEvent callback : callbacks) {
+			callback.onTick(player, info);
+		}
+	});
+	
+	@FunctionalInterface
+	public interface PlayerTickEvent {
+		void onTick(Player player, CallbackInfo info);
 	}
 	
 }
