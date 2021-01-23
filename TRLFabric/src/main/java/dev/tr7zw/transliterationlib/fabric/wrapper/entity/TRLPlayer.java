@@ -9,7 +9,7 @@ public class TRLPlayer<T extends TRLPlayer<T, B>, B extends PlayerEntity> extend
 
 	@Override
 	public boolean isUsingItem() {
-		return isUsingItem();
+		return handle().isUsingItem();
 	}
 
 	@Override

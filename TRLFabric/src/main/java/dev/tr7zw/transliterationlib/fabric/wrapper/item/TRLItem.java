@@ -16,7 +16,24 @@ implements dev.tr7zw.transliterationlib.api.wrapper.item.Item {
 
 	@Override
 	public UseAction getUseAction(ItemStack item) {
-		return transliteration.getEnumWrapper().getUseAction().of(handle().getUseAction(((TRLItemStack)item).handle()));
+		UseAction action = transliteration.getEnumWrapper().getUseAction();
+		net.minecraft.util.UseAction ac = handle().getUseAction(((TRLItemStack)item).handle());
+		switch(ac) {
+		case BLOCK:
+			return action.getBlock();
+		case BOW:
+			return action.getBow();
+		case CROSSBOW:
+			return action.getCrossbow();
+		case DRINK:
+			return action.getDrink();
+		case EAT:
+			return action.getEat();
+		case SPEAR:
+			return action.getSpear();
+		default:
+			return action.getNone();
+		}
 	}
 
 }

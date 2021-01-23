@@ -5,6 +5,7 @@ import dev.tr7zw.transliterationlib.api.config.ConfigBuilder;
 import dev.tr7zw.transliterationlib.api.registry.Keybindings;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.Constructors;
+import dev.tr7zw.transliterationlib.api.wrapper.api.EnumWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.Wrapper;
 import dev.tr7zw.transliterationlib.forge.config.ConfigBuilderImpl;
 import dev.tr7zw.transliterationlib.forge.registry.KeybindingsImpl;
@@ -44,6 +45,12 @@ public class TRansliterationLibAPIForgeImpl implements TRansliterationLibAPI {
 
 	@Override
 	public Wrapper creationWrapper() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EnumWrapper getEnumWrapper() {
 		// TODO Auto-generated method stub
 		return null;
 	}
