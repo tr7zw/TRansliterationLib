@@ -75,4 +75,14 @@ implements dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity {
 		return handle().isSleeping();
 	}
 
+	@Override
+	public Hand getActiveHand() {
+		return transliteration.getEnumWrapper().getHand().of(handle().getActiveHand());
+	}
+
+	@Override
+	public int getItemUseTime() {
+		return handle().getItemUseTime();
+	}
+
 }

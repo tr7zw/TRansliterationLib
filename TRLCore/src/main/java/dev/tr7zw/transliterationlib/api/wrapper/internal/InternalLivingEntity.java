@@ -19,5 +19,7 @@ public interface InternalLivingEntity {
 	public ItemStack getActiveItemStack();
 	public ItemStack getStackInHand(Hand hand);
 	public boolean isSleeping();
+	public Hand getActiveHand();
+	public int getItemUseTime();
 	
 }

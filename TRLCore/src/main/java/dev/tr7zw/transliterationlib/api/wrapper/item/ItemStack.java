@@ -6,5 +6,6 @@ public interface ItemStack extends HandleHolder<ItemStack> {
 
 	public Item getItem();
 	public boolean isEmpty();
+	public UseAction getUseAction();
 	
 }
