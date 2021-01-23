@@ -1,6 +1,10 @@
 package dev.tr7zw.transliterationlib.fabric.wrapper.entity;
 
+import dev.tr7zw.transliterationlib.api.wrapper.item.Arm;
+import dev.tr7zw.transliterationlib.api.wrapper.item.Hand;
+import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
 import net.minecraft.entity.LivingEntity;
+import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteration;
 
 public class TRLEntityLiving<T extends TRLEntityLiving<T, B>, B extends LivingEntity>
 extends TRLEntity<T, B>
@@ -44,6 +48,31 @@ implements dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity {
 	@Override
 	public void setPrevHeadYaw(float value) {
 		handle().prevHeadYaw = value;
+	}
+
+	@Override
+	public Arm getMainArm() {
+		return transliteration.getEnumWrapper().getArm().of(handle().getMainArm());
+	}
+	
+	@Override
+	public ItemStack getActiveItemStack() {
+		return transliteration.creationWrapper().getItemStack().of(handle().getActiveItem());
+	}
+	
+	@Override
+	public boolean isUsingItem() {
+		return handle().isUsingItem();
+	}
+
+	@Override
+	public ItemStack getStackInHand(Hand hand) {
+		return transliteration.creationWrapper().getItemStack().of(handle().getStackInHand((net.minecraft.util.Hand)hand.getHandler()));
+	}
+
+	@Override
+	public boolean isSleeping() {
+		return handle().isSleeping();
 	}
 
 }

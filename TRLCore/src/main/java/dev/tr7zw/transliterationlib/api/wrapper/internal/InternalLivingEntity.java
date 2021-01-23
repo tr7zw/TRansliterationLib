@@ -1,5 +1,9 @@
 package dev.tr7zw.transliterationlib.api.wrapper.internal;
 
+import dev.tr7zw.transliterationlib.api.wrapper.item.Arm;
+import dev.tr7zw.transliterationlib.api.wrapper.item.Hand;
+import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
+
 public interface InternalLivingEntity {
 
 	public float getBodyYaw();
@@ -10,5 +14,10 @@ public interface InternalLivingEntity {
 	public void setHeadYaw(float value);
 	public float getPrevHeadYaw();
 	public void setPrevHeadYaw(float value);
+	public Arm getMainArm();
+	public boolean isUsingItem();
+	public ItemStack getActiveItemStack();
+	public ItemStack getStackInHand(Hand hand);
+	public boolean isSleeping();
 	
 }

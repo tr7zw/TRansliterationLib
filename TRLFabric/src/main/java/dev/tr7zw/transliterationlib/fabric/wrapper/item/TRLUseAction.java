@@ -4,21 +4,17 @@ import dev.tr7zw.transliterationlib.api.wrapper.item.UseAction;
 
 public class TRLUseAction implements UseAction {
 	
-	private static final UseAction NONE = new TRLUseAction(net.minecraft.util.UseAction.NONE);
-	private static final UseAction EAT = new TRLUseAction(net.minecraft.util.UseAction.EAT);
-	private static final UseAction DRINK = new TRLUseAction(net.minecraft.util.UseAction.DRINK);
-	private static final UseAction BLOCK = new TRLUseAction(net.minecraft.util.UseAction.BLOCK);
-	private static final UseAction BOW = new TRLUseAction(net.minecraft.util.UseAction.BOW);
-	private static final UseAction SPEAR = new TRLUseAction(net.minecraft.util.UseAction.SPEAR);
-	private static final UseAction CROSSBOW = new TRLUseAction(net.minecraft.util.UseAction.CROSSBOW);
+	public static final UseAction NONE = new TRLUseAction(net.minecraft.util.UseAction.NONE);
+	public static final UseAction EAT = new TRLUseAction(net.minecraft.util.UseAction.EAT);
+	public static final UseAction DRINK = new TRLUseAction(net.minecraft.util.UseAction.DRINK);
+	public static final UseAction BLOCK = new TRLUseAction(net.minecraft.util.UseAction.BLOCK);
+	public static final UseAction BOW = new TRLUseAction(net.minecraft.util.UseAction.BOW);
+	public static final UseAction SPEAR = new TRLUseAction(net.minecraft.util.UseAction.SPEAR);
+	public static final UseAction CROSSBOW = new TRLUseAction(net.minecraft.util.UseAction.CROSSBOW);
 	
 	private final net.minecraft.util.UseAction handle;
-
-	public TRLUseAction() {
-		handle = null;
-	}
 	
-	public TRLUseAction(net.minecraft.util.UseAction action) {
+	private TRLUseAction(net.minecraft.util.UseAction action) {
 		handle = action;
 	}
 	

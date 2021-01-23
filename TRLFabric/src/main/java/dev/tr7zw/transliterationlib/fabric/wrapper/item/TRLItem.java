@@ -35,5 +35,5 @@ implements dev.tr7zw.transliterationlib.api.wrapper.item.Item {
 			return action.getNone();
 		}
 	}
-
+	
 }

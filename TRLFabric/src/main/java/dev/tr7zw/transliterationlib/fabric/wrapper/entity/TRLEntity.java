@@ -17,5 +17,25 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 	public boolean hasVehicle() {
 		return handle().hasVehicle();
 	}
+
+	@Override
+	public float getPitch() {
+		return handle().pitch;
+	}
+
+	@Override
+	public void setPitch(float amount) {
+		handle().pitch = amount;
+	}
+
+	@Override
+	public float getYaw() {
+		return handle().yaw;
+	}
+
+	@Override
+	public void setYaw(float amount) {
+		handle().yaw = amount;
+	}
 	
 }

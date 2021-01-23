@@ -30,4 +30,31 @@ public abstract class AbstractWrapper<T, I extends AbstractWrapper<T, I, J>, J e
 		return (J) this;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((handler == null) ? 0 : handler.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AbstractWrapper other = (AbstractWrapper) obj;
+		if (handler == null) {
+			if (other.handler != null)
+				return false;
+		} else if (!handler.equals(other.handler))
+			return false;
+		return true;
+	}
+	
+	
+
 }
