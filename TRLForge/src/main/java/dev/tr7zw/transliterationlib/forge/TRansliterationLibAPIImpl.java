@@ -10,11 +10,19 @@ import dev.tr7zw.transliterationlib.api.wrapper.api.Wrapper;
 import dev.tr7zw.transliterationlib.forge.config.ConfigBuilderImpl;
 import dev.tr7zw.transliterationlib.forge.registry.KeybindingsImpl;
 import dev.tr7zw.transliterationlib.forge.wrapper.WrapperImpl;
+import dev.tr7zw.transliterationlib.forge.wrapper.api.ConstructorImpl;
+import dev.tr7zw.transliterationlib.forge.wrapper.api.NormalWrapper;
+import dev.tr7zw.transliterationlib.forge.wrapper.api.SingletonWrapper;
+import dev.tr7zw.transliterationlib.forge.wrapper.api.TRLEnumWrapper;
 
-public class TRansliterationLibAPIForgeImpl implements TRansliterationLibAPI {
+public class TRansliterationLibAPIImpl implements TRansliterationLibAPI {
 
-	private OldWrapper wrapper = new WrapperImpl();
-	private Keybindings keybindings = new KeybindingsImpl();
+	private final OldWrapper wrapper = new WrapperImpl();
+	private final Keybindings keybindings = new KeybindingsImpl();
+	private final Wrapper singletonWrapper = new SingletonWrapper();
+	private final Wrapper creationWrapper = new NormalWrapper();
+	private final Constructors constructors = new ConstructorImpl(creationWrapper);
+	private final EnumWrapper enumWrapper = new TRLEnumWrapper();
 	
 	@Override
 	public OldWrapper getWrapper() {
@@ -33,26 +41,22 @@ public class TRansliterationLibAPIForgeImpl implements TRansliterationLibAPI {
 
 	@Override
 	public Constructors constructors() {
-		// TODO Auto-generated method stub
-		return null;
+		return constructors;
 	}
 
 	@Override
 	public Wrapper singletonWrapper() {
-		// TODO Auto-generated method stub
-		return null;
+		return singletonWrapper;
 	}
 
 	@Override
 	public Wrapper creationWrapper() {
-		// TODO Auto-generated method stub
-		return null;
+		return creationWrapper;
 	}
 
 	@Override
 	public EnumWrapper getEnumWrapper() {
-		// TODO Auto-generated method stub
-		return null;
+		return enumWrapper;
 	}
 
 }

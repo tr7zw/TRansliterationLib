@@ -4,6 +4,11 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "transliterationlib.forge.refmap.json",
   "mixins": [
+    "PlayerSkinProviderMixin",
+    "AbstractClientPlayerEntityMixin",
+    "DefaultSkinHelperMixin",
+    "PlayerEntityMixin",
+    "PlayerEntityModelMixin"
   ],
   "client":[
     
