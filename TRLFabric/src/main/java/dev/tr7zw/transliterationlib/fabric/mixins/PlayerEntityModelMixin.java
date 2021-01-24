@@ -20,7 +20,9 @@ public abstract class PlayerEntityModelMixin<T extends LivingEntity> extends Bip
 
 	@Inject(method = "setAngles", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelPart;copyPositionAndRotation(Lnet/minecraft/client/model/ModelPart;)V", ordinal = 0))
 	public void setAnglesEnd(T livingEntity, float f, float g, float tick, float i, float j, CallbackInfo info) {
-		RenderEvent.SET_ANGLES_END.invoker().onSet(transliteration.singletonWrapper().getLivingEntity().of(livingEntity), tick, info);
+		RenderEvent.SET_ANGLES_END.invoker().onSet(
+				transliteration.singletonWrapper().getBestMatchingLivingEntityWrapper(livingEntity),
+				transliteration.singletonWrapper().getPlayerEntityModel().of(this), tick, info);
 	}
-	
+
 }

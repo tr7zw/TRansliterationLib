@@ -1,22 +1,29 @@
 package dev.tr7zw.transliterationlib.fabric.wrapper.api;
 
-import dev.tr7zw.transliterationlib.api.wrapper.api.Wrapper;
+import dev.tr7zw.transliterationlib.api.wrapper.entity.BoatEntity;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.ClientPlayer;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.Entity;
+import dev.tr7zw.transliterationlib.api.wrapper.entity.HorseEntity;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.Player;
 import dev.tr7zw.transliterationlib.api.wrapper.item.Item;
 import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
+import dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart;
+import dev.tr7zw.transliterationlib.api.wrapper.model.PlayerEntityModel;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
+import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLBoatEntity;
 import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLClientPlayer;
 import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLEntity;
 import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLEntityLiving;
+import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLHorseEntity;
 import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLPlayer;
 import dev.tr7zw.transliterationlib.fabric.wrapper.item.TRLItem;
 import dev.tr7zw.transliterationlib.fabric.wrapper.item.TRLItemStack;
+import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLModelPart;
+import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLPlayerEntityModel;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLIdentifier;
 
-public class NormalWrapper implements Wrapper {
+public class NormalWrapper extends AbstractWrapperBase {
 
 	@Override
 	public Entity getEntity() {
@@ -51,6 +58,26 @@ public class NormalWrapper implements Wrapper {
 	@Override
 	public LivingEntity getLivingEntity() {
 		return new TRLEntityLiving<>();
+	}
+
+	@Override
+	public BoatEntity getBoatEntity() {
+		return new TRLBoatEntity<>();
+	}
+
+	@Override
+	public ModelPart getModelPart() {
+		return new TRLModelPart();
+	}
+
+	@Override
+	public PlayerEntityModel getPlayerEntityModel() {
+		return new TRLPlayerEntityModel();
+	}
+
+	@Override
+	public HorseEntity getHorseEntity() {
+		return new TRLHorseEntity<>();
 	}
 
 }

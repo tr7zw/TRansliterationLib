@@ -3,6 +3,7 @@ package dev.tr7zw.transliterationlib.fabric.wrapper.entity;
 import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.HandleHolder;
 import net.minecraft.entity.Entity;
+import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteration;
 
 public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 		extends AbstractWrapper<B, T, T>
@@ -16,6 +17,11 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 	@Override
 	public boolean hasVehicle() {
 		return handle().hasVehicle();
+	}
+	
+	@Override
+	public dev.tr7zw.transliterationlib.api.wrapper.entity.Entity getVehicle() {
+		return transliteration.creationWrapper().getBestMatchingEntityWrapper(handle().getVehicle());
 	}
 
 	@Override

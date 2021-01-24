@@ -15,7 +15,7 @@ import dev.tr7zw.transliterationlib.fabric.wrapper.api.NormalWrapper;
 import dev.tr7zw.transliterationlib.fabric.wrapper.api.SingletonWrapper;
 import dev.tr7zw.transliterationlib.fabric.wrapper.api.TRLEnumWrapper;
 
-public class TRansliterationLibAPIFabricImpl implements TRansliterationLibAPI {
+public class TRansliterationLibAPIImpl implements TRansliterationLibAPI {
 
 	private final OldWrapper wrapper = new WrapperImpl();
 	private final Keybindings keybindings = new KeybindingsImpl();

@@ -25,7 +25,13 @@ public class TRLUseAction implements UseAction {
 
 	@Override
 	public UseAction of(Object handler) {
-		return new TRLUseAction(handle);
+		if(handler == net.minecraft.util.UseAction.BLOCK)return BLOCK;
+		if(handler == net.minecraft.util.UseAction.EAT)return EAT;
+		if(handler == net.minecraft.util.UseAction.DRINK)return DRINK;
+		if(handler == net.minecraft.util.UseAction.BOW)return BOW;
+		if(handler == net.minecraft.util.UseAction.SPEAR)return SPEAR;
+		if(handler == net.minecraft.util.UseAction.CROSSBOW)return CROSSBOW;
+		return NONE;
 	}
 
 	@Override

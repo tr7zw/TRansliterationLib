@@ -6,7 +6,8 @@
     "PlayerSkinProviderMixin",
     "AbstractClientPlayerEntityMixin",
     "DefaultSkinHelperMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "PlayerEntityModelMixin"
   ],
   "client": [
     

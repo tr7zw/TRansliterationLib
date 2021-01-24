@@ -10,11 +10,9 @@ import net.minecraft.util.registry.Registry;
 
 public class TRLItems implements Items {
 
-	private Item AIR = transliteration.creationWrapper().getItem().of(net.minecraft.item.Items.AIR);
-
 	@Override
 	public Item getAir() {
-		return AIR;
+		return transliteration.creationWrapper().getItem().of(net.minecraft.item.Items.AIR);
 	}
 
 	@Override
