@@ -11,6 +11,10 @@ import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
 import dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart;
 import dev.tr7zw.transliterationlib.api.wrapper.model.PlayerEntityModel;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
+import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
+import dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion;
+import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
+import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
 import dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLBoatEntity;
 import dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLClientPlayer;
 import dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLEntity;
@@ -22,6 +26,10 @@ import dev.tr7zw.transliterationlib.forge.wrapper.item.TRLItemStack;
 import dev.tr7zw.transliterationlib.forge.wrapper.model.TRLModelPart;
 import dev.tr7zw.transliterationlib.forge.wrapper.model.TRLPlayerEntityModel;
 import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLIdentifier;
+import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLMatrixStack;
+import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLQuaternion;
+import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3f;
+import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVertexConsumerProvider;
 
 public class NormalWrapper extends AbstractWrapperBase {
 
@@ -78,6 +86,26 @@ public class NormalWrapper extends AbstractWrapperBase {
 	@Override
 	public HorseEntity getHorseEntity() {
 		return new TRLHorseEntity<>();
+	}
+
+	@Override
+	public Vector3f getVector3f() {
+		return new TRLVector3f();
+	}
+
+	@Override
+	public Quaternion getQuaternion() {
+		return new TRLQuaternion();
+	}
+
+	@Override
+	public MatrixStack getMatrixStack() {
+		return new TRLMatrixStack();
+	}
+
+	@Override
+	public VertexConsumerProvider getVertexConsumerProvider() {
+		return new TRLVertexConsumerProvider();
 	}
 
 }
