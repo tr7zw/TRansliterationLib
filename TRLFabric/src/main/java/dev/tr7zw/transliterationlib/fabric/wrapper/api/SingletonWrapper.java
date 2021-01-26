@@ -8,7 +8,9 @@ import dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.Player;
 import dev.tr7zw.transliterationlib.api.wrapper.item.Item;
 import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
+import dev.tr7zw.transliterationlib.api.wrapper.model.EntityModel;
 import dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart;
+import dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms;
 import dev.tr7zw.transliterationlib.api.wrapper.model.PlayerEntityModel;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
 import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
@@ -23,7 +25,9 @@ import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLHorseEntity;
 import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLPlayer;
 import dev.tr7zw.transliterationlib.fabric.wrapper.item.TRLItem;
 import dev.tr7zw.transliterationlib.fabric.wrapper.item.TRLItemStack;
+import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLEntityModel;
 import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLModelPart;
+import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLModelWithArms;
 import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLPlayerEntityModel;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLIdentifier;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLMatrixStack;
@@ -43,12 +47,15 @@ public class SingletonWrapper extends AbstractWrapperBase {
 	private final Item item = new TRLItem();
 	private final LivingEntity livingEntity = new TRLEntityLiving<>();
 	private final BoatEntity boatEntity = new TRLBoatEntity<>();
-	private final PlayerEntityModel playerEntityModel = new TRLPlayerEntityModel();
+	private final PlayerEntityModel playerEntityModel = new TRLPlayerEntityModel<>();
 	private final ModelPart modelPart = new TRLModelPart();
 	private final HorseEntity horseEntity = new TRLHorseEntity<>();
 	private final Vector3f vector3f = new TRLVector3f();
 	private final Quaternion quaternion = new TRLQuaternion();
 	private final MatrixStack matrixStack = new TRLMatrixStack();
 	private final VertexConsumerProvider vertexConsumerProvider = new TRLVertexConsumerProvider();
+	private final ModelWithArms modelWithArms = new TRLModelWithArms<>();
+	private final EntityModel entityModel = new TRLEntityModel<>();
+	
 
 }

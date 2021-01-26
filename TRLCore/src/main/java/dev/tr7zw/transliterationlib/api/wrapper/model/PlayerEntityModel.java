@@ -1,10 +1,9 @@
 package dev.tr7zw.transliterationlib.api.wrapper.model;
 
-import dev.tr7zw.transliterationlib.api.wrapper.api.HandleHolder;
+public interface PlayerEntityModel extends ModelWithArms  {
 
-public interface PlayerEntityModel extends HandleHolder<PlayerEntityModel>  {
-
+	public PlayerEntityModel of(Object handle);
+	
 	public ModelPart getLeftArm();
 	public ModelPart getRightArm();
-	
 }

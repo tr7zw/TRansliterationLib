@@ -8,7 +8,9 @@ import dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.Player;
 import dev.tr7zw.transliterationlib.api.wrapper.item.Item;
 import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
+import dev.tr7zw.transliterationlib.api.wrapper.model.EntityModel;
 import dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart;
+import dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms;
 import dev.tr7zw.transliterationlib.api.wrapper.model.PlayerEntityModel;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
 import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
@@ -35,5 +37,8 @@ public interface Wrapper {
 	public Quaternion getQuaternion();
 	public MatrixStack getMatrixStack();
 	public VertexConsumerProvider getVertexConsumerProvider();
+	public EntityModel getEntityModel();
+	public ModelWithArms getModelWithArms();
+	public EntityModel getBestMatchingEntityModel(Object entityModel);
 	
 }

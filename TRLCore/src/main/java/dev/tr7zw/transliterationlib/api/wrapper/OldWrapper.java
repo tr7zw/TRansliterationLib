@@ -1,6 +1,9 @@
 package dev.tr7zw.transliterationlib.api.wrapper;
 
 import dev.tr7zw.transliterationlib.api.config.WrappedConfigEntry;
+import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
+import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
+import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
 
 public interface OldWrapper {
 
@@ -19,5 +22,10 @@ public interface OldWrapper {
 	public WrappedEntity wrapEntity(Object entity);
 	
 	public WrappedEntityTrackerUpdate wrapEntityTrackerUpdatePacket(Object packet);
+	
+	public void renderFirstPersonMap(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light,
+			ItemStack stack, boolean small, boolean lefthanded);
+	
+	public boolean isChargedCrossbow(ItemStack item);
 	
 }

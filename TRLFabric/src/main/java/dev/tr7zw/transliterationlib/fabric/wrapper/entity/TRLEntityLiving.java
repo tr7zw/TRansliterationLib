@@ -85,4 +85,24 @@ implements dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity {
 		return handle().getItemUseTime();
 	}
 
+	@Override
+	public int getItemUseTimeLeft() {
+		return handle().getItemUseTimeLeft();
+	}
+
+	@Override
+	public boolean isHandSwinging() {
+		return handle().handSwinging;
+	}
+
+	@Override
+	public ItemStack getOffHandStack() {
+		return transliteration.creationWrapper().getItemStack().of(handle().getOffHandStack());
+	}
+
+	@Override
+	public ItemStack getMainHandStack() {
+		return transliteration.creationWrapper().getItemStack().of(handle().getMainHandStack());
+	}
+
 }

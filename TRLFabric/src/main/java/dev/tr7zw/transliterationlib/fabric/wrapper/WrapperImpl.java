@@ -3,23 +3,43 @@ package dev.tr7zw.transliterationlib.fabric.wrapper;
 import java.util.function.BiConsumer;
 
 import dev.tr7zw.transliterationlib.api.config.WrappedConfigEntry;
+import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedEntity;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedEntityTrackerUpdate;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedKeybind;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedScreen;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedText;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedWorld;
-import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
+import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
+import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
+import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
+import dev.tr7zw.transliterationlib.fabric.RenderPhaseAlternative;
+import dev.tr7zw.transliterationlib.fabric.wrapper.item.TRLItemStack;
+import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLMatrixStack;
+import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVertexConsumerProvider;
 import me.shedaniel.clothconfig2.api.AbstractConfigEntry;
 import me.shedaniel.clothconfig2.gui.entries.EnumListEntry;
 import me.shedaniel.clothconfig2.gui.entries.IntegerSliderEntry;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayer.MultiPhaseParameters;
+import net.minecraft.client.render.RenderPhase;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.CrossbowItem;
+import net.minecraft.item.FilledMapItem;
+import net.minecraft.item.map.MapState;
 import net.minecraft.network.packet.s2c.play.EntityTrackerUpdateS2CPacket;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Matrix4f;
+import net.minecraft.world.World;
 
 public class WrapperImpl implements OldWrapper{
 
@@ -155,6 +175,75 @@ public class WrapperImpl implements OldWrapper{
 				});
 			}
 		};
+	}
+	
+	private static final RenderLayer MAP_BACKGROUND = getTextNoCull(
+			(Identifier) new Identifier("textures/map/map_background.png"));
+	private static final RenderLayer MAP_BACKGROUND_CHECKERBOARD = getTextNoCull(
+			(Identifier) new Identifier("textures/map/map_background_checkerboard.png"));
+	
+	private static RenderLayer getTextNoCull(Identifier texture) {
+		return RenderLayer.of("text", VertexFormats.POSITION_COLOR_TEXTURE_LIGHT, 7, 256, false, true,
+				MultiPhaseParameters.builder().texture(new RenderPhase.Texture(texture, false, false))
+						.alpha(RenderPhaseAlternative.ONE_TENTH_ALPHA)
+						.transparency(RenderPhaseAlternative.TRANSLUCENT_TRANSPARENCY)
+						.lightmap(RenderPhaseAlternative.ENABLE_LIGHTMAP).cull(RenderPhaseAlternative.DISABLE_CULLING)
+						.build(false));
+	}
+
+	
+	// custom render
+	@Override
+	public void renderFirstPersonMap(MatrixStack matricesWrapped, VertexConsumerProvider vertexConsumersWrapped, int light,
+			ItemStack stack, boolean small, boolean lefthanded) {
+		net.minecraft.client.util.math.MatrixStack matrices = ((TRLMatrixStack)matricesWrapped).handle();
+		net.minecraft.client.render.VertexConsumerProvider vertexConsumers = ((TRLVertexConsumerProvider)vertexConsumersWrapped).handle();
+		MinecraftClient client = MinecraftClient.getInstance();
+
+		if (small) {
+			matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(160.0f));
+			matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0f));
+			matrices.scale(0.38f, 0.38f, 0.38f);
+			
+			matrices.translate(-0.1, -1.2, 0.0);
+			matrices.scale(0.0098125f, 0.0098125f, 0.0098125f);
+		} else {
+			if(lefthanded) {
+				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(160.0f));
+				matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(150.0f));
+				matrices.scale(0.38f, 0.38f, 0.38f);
+				
+				matrices.translate(+0.5, -1.3, 0.0);
+			} else {
+				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(160.0f));
+				matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(210.0f));
+				matrices.scale(0.38f, 0.38f, 0.38f);
+				
+				matrices.translate(-1.0, -1.8, 0.0);
+			}
+
+			matrices.scale(0.0138125f, 0.0138125f, 0.0138125f);
+		}
+		MapState mapState = FilledMapItem.getOrCreateMapState(((TRLItemStack) stack).handle(), (World) client.world);
+		VertexConsumer vertexConsumer = vertexConsumers
+				.getBuffer(mapState == null ? MAP_BACKGROUND : MAP_BACKGROUND_CHECKERBOARD);
+		Matrix4f matrix4f = matrices.peek().getModel();
+		vertexConsumer.vertex(matrix4f, -7.0f, 135.0f, 0.0f).color(255, 255, 255, 255).texture(0.0f, 1.0f).light(light)
+				.next();
+		vertexConsumer.vertex(matrix4f, 135.0f, 135.0f, 0.0f).color(255, 255, 255, 255).texture(1.0f, 1.0f).light(light)
+				.next();
+		vertexConsumer.vertex(matrix4f, 135.0f, -7.0f, 0.0f).color(255, 255, 255, 255).texture(1.0f, 0.0f).light(light)
+				.next();
+		vertexConsumer.vertex(matrix4f, -7.0f, -7.0f, 0.0f).color(255, 255, 255, 255).texture(0.0f, 0.0f).light(light)
+				.next();
+		if (mapState != null) {
+			client.gameRenderer.getMapRenderer().draw(matrices, vertexConsumers, mapState, false, light);
+		}
+	}
+
+	@Override
+	public boolean isChargedCrossbow(ItemStack item) {
+		return CrossbowItem.isCharged(((TRLItemStack)item).handle());
 	}
 
 }
