@@ -15,21 +15,22 @@ import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.HeldItemLayer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.entity.model.IHasArm;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.HandSide;
 
 @Mixin(HeldItemLayer.class)
-public abstract class HeldItemFeatureRendererMixin<T extends LivingEntity, M extends EntityModel<T> & IHasArm> extends LayerRenderer<T, M> {
+public abstract class HeldItemFeatureRendererMixin<T extends LivingEntity, M extends EntityModel<T>>
+		extends LayerRenderer<T, M> {
 
 	public HeldItemFeatureRendererMixin(IEntityRenderer<T, M> entityRendererIn) {
 		super(entityRendererIn);
 	}
 
 	@Inject(at = @At("HEAD"), method = "func_229135_a_", cancellable = true)
-	private void func_229135_a_(LivingEntity entity, ItemStack stack, ItemCameraTransforms.TransformType p_229135_3_, HandSide arm, MatrixStack matrices, IRenderTypeBuffer vertexConsumers, int light, CallbackInfo info) {
+	private void func_229135_a_(LivingEntity entity, ItemStack stack, ItemCameraTransforms.TransformType p_229135_3_,
+			HandSide arm, MatrixStack matrices, IRenderTypeBuffer vertexConsumers, int light, CallbackInfo info) {
 		RenderEvent.RENDER_HELD_ITEM.invoker().onRender(
 				transliteration.singletonWrapper().getBestMatchingLivingEntityWrapper(entity),
 				transliteration.singletonWrapper().getBestMatchingEntityModel(getEntityModel()),

@@ -97,12 +97,13 @@ implements dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity {
 
 	@Override
 	public ItemStack getOffHandStack() {
-		return transliteration.creationWrapper().getItemStack().of(handle().getOffHandStack());
+		return getStackInHand(transliteration.getEnumWrapper().getHand().getOffHand());
 	}
 
 	@Override
 	public ItemStack getMainHandStack() {
-		return transliteration.creationWrapper().getItemStack().of(handle().getMainHandStack());
+		return getStackInHand(transliteration.getEnumWrapper().getHand().getMainHand());
 	}
+
 
 }
