@@ -1,15 +1,9 @@
 package dev.tr7zw.transliterationlib.fabric.wrapper;
 
-import java.util.function.BiConsumer;
-
 import dev.tr7zw.transliterationlib.api.config.WrappedConfigEntry;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
-import dev.tr7zw.transliterationlib.api.wrapper.WrappedEntity;
-import dev.tr7zw.transliterationlib.api.wrapper.WrappedEntityTrackerUpdate;
-import dev.tr7zw.transliterationlib.api.wrapper.WrappedKeybind;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedScreen;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedText;
-import dev.tr7zw.transliterationlib.api.wrapper.WrappedWorld;
 import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
@@ -22,19 +16,15 @@ import me.shedaniel.clothconfig2.gui.entries.EnumListEntry;
 import me.shedaniel.clothconfig2.gui.entries.IntegerSliderEntry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayer.MultiPhaseParameters;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.map.MapState;
-import net.minecraft.network.packet.s2c.play.EntityTrackerUpdateS2CPacket;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -98,85 +88,6 @@ public class WrapperImpl implements OldWrapper{
 		};
 	}
 
-	@Override
-	public WrappedKeybind createKeyBind(String name, int key, String namespace) {
-		return new WrappedKeybind() {
-			
-			private KeyBinding keybind = new KeyBinding(name, key, namespace);
-			
-			@Override
-			public Object getHandler() {
-				return keybind;
-			}
-
-			@Override
-			public boolean isPressed() {
-				return keybind.isPressed();
-			}
-		};
-	}
-
-	@Override
-	public WrappedWorld wrapWorld(Object world) {
-		return new WrappedWorld() {
-			
-			private ClientWorld clientWorld = (ClientWorld) world;
-			
-			@Override
-			public Object getHandler() {
-				return clientWorld;
-			}
-			
-			@Override
-			public WrappedEntity getEntityById(int id) {
-				return wrapEntity(clientWorld.getEntityById(id));
-			}
-		};
-	}
-
-	@Override
-	public WrappedEntity wrapEntity(Object entity) {
-		return new WrappedEntity() {
-			
-			private Entity ent = (Entity) entity;
-			
-			@Override
-			public Object getHandler() {
-				return ent;
-			}
-		};
-	}
-
-	@Override
-	public WrappedEntityTrackerUpdate wrapEntityTrackerUpdatePacket(Object packet) {
-		return new WrappedEntityTrackerUpdate() {
-			
-			private EntityTrackerUpdateS2CPacket etuPacket = (EntityTrackerUpdateS2CPacket) packet;
-			
-			@Override
-			public Object getHandler() {
-				return etuPacket;
-			}
-
-			@Override
-			public int id() {
-				return etuPacket.id();
-			}
-
-			@Override
-			public boolean hasTrackedValues() {
-				return etuPacket.getTrackedValues() != null;
-			}
-
-			@Override
-			public void forEach(BiConsumer<Integer, Object> handler) {
-				etuPacket.getTrackedValues().forEach(entry -> {
-					handler.accept(entry.getData().getId(), entry.get());
-				});
-			}
-		};
-	}
-	
 	private static final RenderLayer MAP_BACKGROUND = getTextNoCull(
 			(Identifier) new Identifier("textures/map/map_background.png"));
 	private static final RenderLayer MAP_BACKGROUND_CHECKERBOARD = getTextNoCull(

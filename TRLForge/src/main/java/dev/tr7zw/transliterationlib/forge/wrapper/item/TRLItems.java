@@ -15,6 +15,7 @@ public class TRLItems implements Items {
 		return transliteration.creationWrapper().getItem().of(net.minecraft.item.Items.AIR);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Item getItem(Identifier id) {
 		return transliteration.creationWrapper().getItem().of(Registry.ITEM.getOrDefault(((TRLIdentifier)id).handle()));

@@ -1,17 +1,11 @@
 package dev.tr7zw.transliterationlib.forge.wrapper;
 
-import java.util.function.BiConsumer;
-
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import dev.tr7zw.transliterationlib.api.config.WrappedConfigEntry;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
-import dev.tr7zw.transliterationlib.api.wrapper.WrappedEntity;
-import dev.tr7zw.transliterationlib.api.wrapper.WrappedEntityTrackerUpdate;
-import dev.tr7zw.transliterationlib.api.wrapper.WrappedKeybind;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedScreen;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedText;
-import dev.tr7zw.transliterationlib.api.wrapper.WrappedWorld;
 import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
@@ -28,12 +22,8 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.FilledMapItem;
-import net.minecraft.network.play.server.SEntityMetadataPacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
@@ -94,85 +84,6 @@ public class WrapperImpl implements OldWrapper{
 			@Override
 			public int getIntValue() {
 				return ((IntegerSliderEntry)handler).getValue();
-			}
-		};
-	}
-
-	@Override
-	public WrappedKeybind createKeyBind(String name, int key, String namespace) {
-		return new WrappedKeybind() {
-			
-			private KeyBinding keybind = new KeyBinding(name, key, namespace);
-			
-			@Override
-			public Object getHandler() {
-				return keybind;
-			}
-
-			@Override
-			public boolean isPressed() {
-				return keybind.isPressed();
-			}
-		};
-	}
-
-	@Override
-	public WrappedWorld wrapWorld(Object world) {
-		return new WrappedWorld() {
-			
-			private ClientWorld clientWorld = (ClientWorld) world;
-			
-			@Override
-			public Object getHandler() {
-				return clientWorld;
-			}
-			
-			@Override
-			public WrappedEntity getEntityById(int id) {
-				return wrapEntity(clientWorld.getEntityByID(id));
-			}
-		};
-	}
-
-	@Override
-	public WrappedEntity wrapEntity(Object entity) {
-		return new WrappedEntity() {
-			
-			private Entity ent = (Entity) entity;
-			
-			@Override
-			public Object getHandler() {
-				return ent;
-			}
-		};
-	}
-
-	@Override
-	public WrappedEntityTrackerUpdate wrapEntityTrackerUpdatePacket(Object packet) {
-		return new WrappedEntityTrackerUpdate() {
-			
-			private SEntityMetadataPacket sPacket = (SEntityMetadataPacket) packet;
-			
-			@Override
-			public Object getHandler() {
-				return sPacket;
-			}
-			
-			@Override
-			public int id() {
-				return sPacket.getEntityId();
-			}
-			
-			@Override
-			public boolean hasTrackedValues() {
-				return sPacket.getDataManagerEntries() != null;
-			}
-			
-			@Override
-			public void forEach(BiConsumer<Integer, Object> handler) {
-				sPacket.getDataManagerEntries().forEach(entry -> {
-					handler.accept(entry.getKey().getId(), entry.getValue());
-				});
 			}
 		};
 	}

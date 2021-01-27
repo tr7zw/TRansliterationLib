@@ -15,14 +15,6 @@ public interface OldWrapper {
 	
 	public WrappedConfigEntry getWrappedConfigEntry(Object clazz);
 	
-	public WrappedKeybind createKeyBind(String name, int key, String namespace);
-	
-	public WrappedWorld wrapWorld(Object world);
-	
-	public WrappedEntity wrapEntity(Object entity);
-	
-	public WrappedEntityTrackerUpdate wrapEntityTrackerUpdatePacket(Object packet);
-	
 	public void renderFirstPersonMap(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light,
 			ItemStack stack, boolean small, boolean lefthanded);
 	
