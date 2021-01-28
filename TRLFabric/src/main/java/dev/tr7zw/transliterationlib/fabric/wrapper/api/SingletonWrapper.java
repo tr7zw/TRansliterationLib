@@ -34,9 +34,7 @@ import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLMatrixStack;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLQuaternion;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3f;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVertexConsumerProvider;
-import lombok.Getter;
 
-@Getter
 public class SingletonWrapper extends AbstractWrapperBase {
 
 	private final Entity entity = new TRLEntity<>();
@@ -56,6 +54,73 @@ public class SingletonWrapper extends AbstractWrapperBase {
 	private final VertexConsumerProvider vertexConsumerProvider = new TRLVertexConsumerProvider();
 	private final ModelWithArms modelWithArms = new TRLModelWithArms<>();
 	private final EntityModel entityModel = new TRLEntityModel<>();
-	
+
+	public Entity getEntity() {
+		return entity;
+	}
+
+	public Identifier getIdentifier() {
+		return identifier;
+	}
+
+	public ClientPlayer getClientPlayer() {
+		return clientPlayer;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public ItemStack getItemStack() {
+		return itemStack;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public LivingEntity getLivingEntity() {
+		return livingEntity;
+	}
+
+	public BoatEntity getBoatEntity() {
+		return boatEntity;
+	}
+
+	public PlayerEntityModel getPlayerEntityModel() {
+		return playerEntityModel;
+	}
+
+	public ModelPart getModelPart() {
+		return modelPart;
+	}
+
+	public HorseEntity getHorseEntity() {
+		return horseEntity;
+	}
+
+	public Vector3f getVector3f() {
+		return vector3f;
+	}
+
+	public Quaternion getQuaternion() {
+		return quaternion;
+	}
+
+	public MatrixStack getMatrixStack() {
+		return matrixStack;
+	}
+
+	public VertexConsumerProvider getVertexConsumerProvider() {
+		return vertexConsumerProvider;
+	}
+
+	public ModelWithArms getModelWithArms() {
+		return modelWithArms;
+	}
+
+	public EntityModel getEntityModel() {
+		return entityModel;
+	}
 
 }

@@ -107,8 +107,6 @@ dependencies {
     compile project(':TRLCore')
     extraLibs project(':TRLCore')
     
-    compileOnly 'org.projectlombok:lombok:1.18.16'
-	annotationProcessor 'org.projectlombok:lombok:1.18.16'
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

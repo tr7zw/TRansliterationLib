@@ -23,9 +23,6 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.spongepowered/mixin
 	compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.4.4', transitive:false
 	
-	compileOnly 'org.projectlombok:lombok:1.18.16'
-	annotationProcessor 'org.projectlombok:lombok:1.18.16'
-	
 }
 
 publishing {
