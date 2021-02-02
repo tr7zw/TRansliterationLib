@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "transliterationlib",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "TRansliterationLib",
   "description": "Creating multi modloader mods.",
   "authors": [
