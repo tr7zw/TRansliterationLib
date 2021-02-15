@@ -13,6 +13,7 @@ import dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart;
 import dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms;
 import dev.tr7zw.transliterationlib.api.wrapper.model.PlayerEntityModel;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
+import dev.tr7zw.transliterationlib.api.wrapper.util.Keybind;
 import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
@@ -30,6 +31,7 @@ import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLModelPart;
 import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLModelWithArms;
 import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLPlayerEntityModel;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLIdentifier;
+import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLKeybind;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLMatrixStack;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLQuaternion;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3f;
@@ -54,6 +56,7 @@ public class SingletonWrapper extends AbstractWrapperBase {
 	private final VertexConsumerProvider vertexConsumerProvider = new TRLVertexConsumerProvider();
 	private final ModelWithArms modelWithArms = new TRLModelWithArms<>();
 	private final EntityModel entityModel = new TRLEntityModel<>();
+	private final Keybind keybind = new TRLKeybind();
 
 	public Entity getEntity() {
 		return entity;
@@ -121,6 +124,11 @@ public class SingletonWrapper extends AbstractWrapperBase {
 
 	public EntityModel getEntityModel() {
 		return entityModel;
+	}
+
+	@Override
+	public Keybind getKeybind() {
+		return keybind;
 	}
 
 }

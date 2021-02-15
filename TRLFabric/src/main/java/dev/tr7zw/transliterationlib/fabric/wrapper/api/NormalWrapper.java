@@ -13,6 +13,7 @@ import dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart;
 import dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms;
 import dev.tr7zw.transliterationlib.api.wrapper.model.PlayerEntityModel;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
+import dev.tr7zw.transliterationlib.api.wrapper.util.Keybind;
 import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
@@ -30,6 +31,7 @@ import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLModelPart;
 import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLModelWithArms;
 import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLPlayerEntityModel;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLIdentifier;
+import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLKeybind;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLMatrixStack;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLQuaternion;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3f;
@@ -84,7 +86,7 @@ public class NormalWrapper extends AbstractWrapperBase {
 
 	@Override
 	public PlayerEntityModel getPlayerEntityModel() {
-		return new TRLPlayerEntityModel();
+		return new TRLPlayerEntityModel<>();
 	}
 
 	@Override
@@ -120,6 +122,11 @@ public class NormalWrapper extends AbstractWrapperBase {
 	@Override
 	public ModelWithArms getModelWithArms() {
 		return new TRLModelWithArms<>();
+	}
+
+	@Override
+	public Keybind getKeybind() {
+		return new TRLKeybind();
 	}
 
 }

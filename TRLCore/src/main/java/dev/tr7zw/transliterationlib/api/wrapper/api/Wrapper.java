@@ -13,6 +13,7 @@ import dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart;
 import dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms;
 import dev.tr7zw.transliterationlib.api.wrapper.model.PlayerEntityModel;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
+import dev.tr7zw.transliterationlib.api.wrapper.util.Keybind;
 import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
@@ -40,5 +41,6 @@ public interface Wrapper {
 	public EntityModel getEntityModel();
 	public ModelWithArms getModelWithArms();
 	public EntityModel getBestMatchingEntityModel(Object entityModel);
+	public Keybind getKeybind();
 	
 }

@@ -13,6 +13,7 @@ import dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart;
 import dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms;
 import dev.tr7zw.transliterationlib.api.wrapper.model.PlayerEntityModel;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
+import dev.tr7zw.transliterationlib.api.wrapper.util.Keybind;
 import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
@@ -30,6 +31,7 @@ import dev.tr7zw.transliterationlib.forge.wrapper.model.TRLModelPart;
 import dev.tr7zw.transliterationlib.forge.wrapper.model.TRLModelWithArms;
 import dev.tr7zw.transliterationlib.forge.wrapper.model.TRLPlayerEntityModel;
 import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLIdentifier;
+import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLKeybind;
 import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLMatrixStack;
 import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLQuaternion;
 import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3f;
@@ -45,7 +47,7 @@ public class SingletonWrapper extends AbstractWrapperBase {
 	private final Item item = new TRLItem();
 	private final LivingEntity livingEntity = new TRLEntityLiving<>();
 	private final BoatEntity boatEntity = new TRLBoatEntity<>();
-	private final PlayerEntityModel playerEntityModel = new TRLPlayerEntityModel();
+	private final PlayerEntityModel playerEntityModel = new TRLPlayerEntityModel<>();
 	private final ModelPart modelPart = new TRLModelPart();
 	private final HorseEntity horseEntity = new TRLHorseEntity<>();
 	private final Vector3f vector3f = new TRLVector3f();
@@ -54,6 +56,7 @@ public class SingletonWrapper extends AbstractWrapperBase {
 	private final VertexConsumerProvider vertexConsumerProvider = new TRLVertexConsumerProvider();
 	private final ModelWithArms modelWithArms = new TRLModelWithArms<>();
 	private final EntityModel entityModel = new TRLEntityModel<>();
+	private final Keybind keybind = new TRLKeybind();
 
 	public Entity getEntity() {
 		return entity;
@@ -122,5 +125,11 @@ public class SingletonWrapper extends AbstractWrapperBase {
 	public EntityModel getEntityModel() {
 		return entityModel;
 	}
+	
+	@Override
+	public Keybind getKeybind() {
+		return keybind;
+	}
+
 
 }
