@@ -5,5 +5,6 @@ import dev.tr7zw.transliterationlib.api.wrapper.internal.InternalEntity;
 public interface Entity extends InternalEntity{
 
 	public Entity of(Object handle);
+	public Object getHandler();
 	
 }

@@ -1,9 +1,12 @@
 package dev.tr7zw.transliterationlib.forge.wrapper;
 
+import java.util.function.BiConsumer;
+
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import dev.tr7zw.transliterationlib.api.config.WrappedConfigEntry;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
+import dev.tr7zw.transliterationlib.api.wrapper.WrappedEntityTrackerUpdate;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedScreen;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedText;
 import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
@@ -24,6 +27,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.FilledMapItem;
+import net.minecraft.network.play.server.SEntityMetadataPacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
@@ -148,4 +152,34 @@ public class WrapperImpl implements OldWrapper{
 		return CrossbowItem.isCharged(((TRLItemStack)item).handle());
 	}
 
+	@Override
+	public WrappedEntityTrackerUpdate wrapEntityTrackerUpdatePacket(Object packet) {
+		return new WrappedEntityTrackerUpdate() {
+			
+			private SEntityMetadataPacket sPacket = (SEntityMetadataPacket) packet;
+			
+			@Override
+			public Object getHandler() {
+				return sPacket;
+			}
+			
+			@Override
+			public int id() {
+				return sPacket.getEntityId();
+			}
+			
+			@Override
+			public boolean hasTrackedValues() {
+				return sPacket.getDataManagerEntries() != null;
+			}
+			
+			@Override
+			public void forEach(BiConsumer<Integer, Object> handler) {
+				sPacket.getDataManagerEntries().forEach(entry -> {
+					handler.accept(entry.getKey().getId(), entry.getValue());
+				});
+			}
+		};
+	}
+	
 }

@@ -20,4 +20,6 @@ public interface OldWrapper {
 	
 	public boolean isChargedCrossbow(ItemStack item);
 	
+	public WrappedEntityTrackerUpdate wrapEntityTrackerUpdatePacket(Object packet);
+	
 }

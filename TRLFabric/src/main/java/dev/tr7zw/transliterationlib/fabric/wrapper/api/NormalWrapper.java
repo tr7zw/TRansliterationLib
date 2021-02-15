@@ -18,6 +18,7 @@ import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
 import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
+import dev.tr7zw.transliterationlib.api.wrapper.world.World;
 import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLBoatEntity;
 import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLClientPlayer;
 import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLEntity;
@@ -36,6 +37,7 @@ import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLMatrixStack;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLQuaternion;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3f;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVertexConsumerProvider;
+import dev.tr7zw.transliterationlib.fabric.wrapper.world.TRLWorld;
 
 public class NormalWrapper extends AbstractWrapperBase {
 
@@ -127,6 +129,11 @@ public class NormalWrapper extends AbstractWrapperBase {
 	@Override
 	public Keybind getKeybind() {
 		return new TRLKeybind();
+	}
+
+	@Override
+	public World getWorld() {
+		return new TRLWorld();
 	}
 
 }

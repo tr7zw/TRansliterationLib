@@ -18,6 +18,7 @@ import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
 import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
+import dev.tr7zw.transliterationlib.api.wrapper.world.World;
 
 public interface Wrapper {
 
@@ -42,5 +43,6 @@ public interface Wrapper {
 	public ModelWithArms getModelWithArms();
 	public EntityModel getBestMatchingEntityModel(Object entityModel);
 	public Keybind getKeybind();
+	public World getWorld();
 	
 }

@@ -1,7 +1,10 @@
 package dev.tr7zw.transliterationlib.fabric.wrapper;
 
+import java.util.function.BiConsumer;
+
 import dev.tr7zw.transliterationlib.api.config.WrappedConfigEntry;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
+import dev.tr7zw.transliterationlib.api.wrapper.WrappedEntityTrackerUpdate;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedScreen;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedText;
 import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
@@ -25,6 +28,7 @@ import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.map.MapState;
+import net.minecraft.network.packet.s2c.play.EntityTrackerUpdateS2CPacket;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -157,4 +161,34 @@ public class WrapperImpl implements OldWrapper{
 		return CrossbowItem.isCharged(((TRLItemStack)item).handle());
 	}
 
+	@Override
+	public WrappedEntityTrackerUpdate wrapEntityTrackerUpdatePacket(Object packet) {
+		return new WrappedEntityTrackerUpdate() {
+			
+			private EntityTrackerUpdateS2CPacket etuPacket = (EntityTrackerUpdateS2CPacket) packet;
+			
+			@Override
+			public Object getHandler() {
+				return etuPacket;
+			}
+
+			@Override
+			public int id() {
+				return etuPacket.id();
+			}
+
+			@Override
+			public boolean hasTrackedValues() {
+				return etuPacket.getTrackedValues() != null;
+			}
+
+			@Override
+			public void forEach(BiConsumer<Integer, Object> handler) {
+				etuPacket.getTrackedValues().forEach(entry -> {
+					handler.accept(entry.getData().getId(), entry.get());
+				});
+			}
+		};
+	}
+	
 }
