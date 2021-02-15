@@ -1,1 +1,1 @@
-gradlew TRLCore:publishToMavenLocal
+gradlew TRLCore:publishToMavenLocal TRLCombined:publishToMavenLocal
