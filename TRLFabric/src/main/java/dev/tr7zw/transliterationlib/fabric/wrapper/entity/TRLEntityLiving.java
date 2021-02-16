@@ -3,8 +3,11 @@ package dev.tr7zw.transliterationlib.fabric.wrapper.entity;
 import dev.tr7zw.transliterationlib.api.wrapper.item.Arm;
 import dev.tr7zw.transliterationlib.api.wrapper.item.Hand;
 import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
+import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i;
 import net.minecraft.entity.LivingEntity;
 import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteration;
+
+import java.util.Optional;
 
 public class TRLEntityLiving<T extends TRLEntityLiving<T, B>, B extends LivingEntity>
 extends TRLEntity<T, B>
@@ -103,6 +106,16 @@ implements dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity {
 	@Override
 	public ItemStack getMainHandStack() {
 		return getStackInHand(transliteration.getEnumWrapper().getHand().getMainHand());
+	}
+
+	@Override
+	public boolean isClimbing() {
+		return handle().isClimbing();
+	}
+
+	@Override
+	public Optional<Vector3i> getClimbingPos() {
+		return handle().getClimbingPos().map(v -> transliteration.creationWrapper().getVector3i().of(v));
 	}
 
 

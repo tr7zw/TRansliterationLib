@@ -33,4 +33,19 @@ public class TRLVector3f
 		return new TRLQuaternion().ofTyped(handle().rotationDegrees(angle));
 	}
 
+	@Override
+	public float getX() {
+		return handle().getX();
+	}
+
+	@Override
+	public float getY() {
+		return handle().getY();
+	}
+
+	@Override
+	public float getZ() {
+		return handle().getZ();
+	}
+
 }

@@ -2,6 +2,7 @@ package dev.tr7zw.transliterationlib.forge.wrapper.entity;
 
 import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.HandleHolder;
+import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d;
 import net.minecraft.entity.Entity;
 import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteration;
 
@@ -42,6 +43,11 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 	@Override
 	public void setYaw(float amount) {
 		handle().rotationYaw = amount;
+	}
+
+	@Override
+	public Vector3d getPos() {
+		return transliteration.creationWrapper().getVector3d().of(handle().getPositionVec());
 	}
 	
 }

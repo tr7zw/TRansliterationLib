@@ -16,7 +16,9 @@ import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Keybind;
 import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion;
+import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
+import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i;
 import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
 import dev.tr7zw.transliterationlib.api.wrapper.world.World;
 import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLBoatEntity;
@@ -35,7 +37,9 @@ import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLIdentifier;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLKeybind;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLMatrixStack;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLQuaternion;
+import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3d;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3f;
+import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3i;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVertexConsumerProvider;
 import dev.tr7zw.transliterationlib.fabric.wrapper.world.TRLWorld;
 
@@ -134,6 +138,16 @@ public class NormalWrapper extends AbstractWrapperBase {
 	@Override
 	public World getWorld() {
 		return new TRLWorld();
+	}
+
+	@Override
+	public Vector3d getVector3d() {
+		return new TRLVector3d();
+	}
+
+	@Override
+	public Vector3i getVector3i() {
+		return new TRLVector3i();
 	}
 
 }

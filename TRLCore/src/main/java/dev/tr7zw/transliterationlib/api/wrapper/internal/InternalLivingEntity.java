@@ -1,8 +1,11 @@
 package dev.tr7zw.transliterationlib.api.wrapper.internal;
 
+import java.util.Optional;
+
 import dev.tr7zw.transliterationlib.api.wrapper.item.Arm;
 import dev.tr7zw.transliterationlib.api.wrapper.item.Hand;
 import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
+import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i;
 
 public interface InternalLivingEntity {
 
@@ -25,5 +28,7 @@ public interface InternalLivingEntity {
 	public int getItemUseTime();
 	public int getItemUseTimeLeft();
 	public boolean isHandSwinging();
+	public boolean isClimbing();
+	public Optional<Vector3i> getClimbingPos();
 	
 }
