@@ -49,5 +49,10 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 	public Vector3d getPos() {
 		return transliteration.creationWrapper().getVector3d().of(handle().getPos());
 	}
+
+	@Override
+	public Vector3d getVelocity() {
+		return transliteration.creationWrapper().getVector3d().of(handle().getVelocity());
+	}
 	
 }

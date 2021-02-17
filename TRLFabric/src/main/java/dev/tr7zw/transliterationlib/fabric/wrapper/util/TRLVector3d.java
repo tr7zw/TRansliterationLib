@@ -1,10 +1,10 @@
 package dev.tr7zw.transliterationlib.fabric.wrapper.util;
 
 import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
-import net.minecraft.client.util.math.Vector3d;
+import net.minecraft.util.math.Vec3d;
 
 public class TRLVector3d
-		extends AbstractWrapper<Vector3d, TRLVector3d, dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d>
+		extends AbstractWrapper<Vec3d, TRLVector3d, dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d>
 		implements dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d {
 
 	@Override
