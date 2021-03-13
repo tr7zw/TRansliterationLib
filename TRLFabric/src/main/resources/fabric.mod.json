@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "icon": "assets/transliterationlib/icon.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
       "dev.tr7zw.transliterationlib.fabric.TRansliterationLibMod"
@@ -21,5 +21,10 @@
   },
   "mixins": [
     "transliterationlib.mixins.json"
-  ]
+  ],
+  "custom": {
+    "modmenu": {
+        "badges": [ "library" ]
+    }
+  }
 }
