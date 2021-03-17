@@ -54,5 +54,10 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 	public Vector3d getVelocity() {
 		return transliteration.creationWrapper().getVector3d().of(handle().getMotion());
 	}
+
+	@Override
+	public int getAge() {
+		return handle().ticksExisted;
+	}
 	
 }

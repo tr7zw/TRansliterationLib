@@ -14,5 +14,6 @@ public interface InternalEntity {
 	public void setYaw(float amount);
 	public Vector3d getPos();
 	public Vector3d getVelocity();
+	public int getAge();
 	
 }
