@@ -64,4 +64,9 @@ public class TRLArm implements Arm {
 		return true;
 	}
 
+	@Override
+	public boolean isNull() {
+		return handle == null;
+	}
+
 }

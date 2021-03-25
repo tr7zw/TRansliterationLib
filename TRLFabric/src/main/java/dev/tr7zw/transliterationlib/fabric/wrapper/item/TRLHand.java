@@ -64,4 +64,9 @@ public class TRLHand implements Hand{
 		return true;
 	}
 
+	@Override
+	public boolean isNull() {
+		return handle == null;
+	}
+
 }

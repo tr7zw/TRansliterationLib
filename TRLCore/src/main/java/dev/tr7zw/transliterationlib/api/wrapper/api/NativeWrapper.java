@@ -12,4 +12,6 @@ public interface NativeWrapper<T, I extends NativeWrapper<T, I, J>, J extends Ha
 	public I ofTyped(T handler);
 	public J of(Object handler);
 	
+	public boolean isNull();
+	
 }

@@ -54,7 +54,10 @@ public abstract class AbstractWrapper<T, I extends AbstractWrapper<T, I, J>, J e
 			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public boolean isNull() {
+		return handler == null;
+	}
 
 }

@@ -4,6 +4,7 @@ import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteratio
 
 import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.ClientPlayer;
+import dev.tr7zw.transliterationlib.api.wrapper.world.World;
 import net.minecraft.client.MinecraftClient;
 
 public class TRLMinecraftClient extends AbstractWrapper<MinecraftClient, TRLMinecraftClient, dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient>
@@ -16,7 +17,12 @@ implements dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient {
 
 	@Override
 	public ClientPlayer getPlayer() {
-		return transliteration.creationWrapper().getClientPlayer().of(handle().player);
+		return transliteration.singletonWrapper().getClientPlayer().of(handle().player);
+	}
+
+	@Override
+	public World getWorld() {
+		return transliteration.singletonWrapper().getWorld().of(handle().world);
 	}
 
 

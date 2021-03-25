@@ -96,4 +96,11 @@ public class TRLUseAction implements UseAction {
 			return false;
 		return true;
 	}
+	
+	@Override
+	public boolean isNull() {
+		return handle == null;
+	}
+
+	
 }
