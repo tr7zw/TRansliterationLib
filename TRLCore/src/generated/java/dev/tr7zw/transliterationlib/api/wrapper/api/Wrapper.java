@@ -36,8 +36,6 @@ public interface Wrapper {
 
   public Vector3f getVector3f();
 
-  public Quaternion getQuaternion();
-
   public MatrixStack getMatrixStack();
 
   public VertexConsumerProvider getVertexConsumerProvider();
@@ -48,11 +46,13 @@ public interface Wrapper {
 
   public World getWorld();
 
-  public Vector3d getVector3d();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Keybind getKeybind();
 
-  public Vector3i getVector3i();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d getVector3d();
 
   public dev.tr7zw.transliterationlib.api.wrapper.util.Identifier getIdentifier();
 
-  public dev.tr7zw.transliterationlib.api.wrapper.util.Keybind getKeybind();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i getVector3i();
+
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion getQuaternion();
 }

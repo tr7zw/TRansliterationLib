@@ -26,6 +26,7 @@ import com.github.mustachejava.MustacheFactory;
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
 
+import dev.tr7zw.transliterationlib.api.annotations.SimpleField;
 import dev.tr7zw.transliterationlib.api.annotations.SimpleMethod;
 import dev.tr7zw.transliterationlib.api.annotations.SimpleWrapper;
 
@@ -34,7 +35,7 @@ public class Generator {
 	private static File coreGen = new File("../TRLCore/src/generated/java");
 	private static File fabricGen = new File("../TRLFabric/src/generated/java");
 	private static File forgeGen = new File("../TRLForge/src/generated/java");
-	
+
 	public static void main(String[] args) throws IOException, FormatterException {
 		fabricGen.mkdirs();
 		forgeGen.mkdirs();
@@ -42,28 +43,32 @@ public class Generator {
 		deleteFolder(fabricGen);
 		deleteFolder(forgeGen);
 		deleteFolder(coreGen);
-		Reflections reflections = createReflections(new String[]{"dev.tr7zw.transliterationlib.api"});
+		Reflections reflections = createReflections(new String[] { "dev.tr7zw.transliterationlib.api" });
 		Set<Class<?>> allClasses = new HashSet<>();
 		Set<Class<?>> simpleWrapper = reflections.getTypesAnnotatedWith(SimpleWrapper.class);
 		allClasses.addAll(simpleWrapper);
-		Set<String> wrapperList = new HashSet<>();
-		for(Class<?> clazz : simpleWrapper) {
+		Set<WrapperTarget> wrapperList = new HashSet<>();
+		for (Class<?> clazz : simpleWrapper) {
 			proccessClass(clazz, Side.Fabric);
 			proccessClass(clazz, Side.Forge);
-			wrapperList.add(clazz.getName() + " get" + clazz.getSimpleName());
+			wrapperList.add(new WrapperTarget(" get" + clazz.getSimpleName(), clazz.getName(), clazz.getName()
+					.replace(clazz.getSimpleName(), "TRL" + clazz.getSimpleName()).replace(".api.", ".{{side}}.")));
 		}
-		
+
 		generateWrapperInterface(wrapperList);
+		generateWrapperNormalImpl(wrapperList, Side.Fabric);
+		generateWrapperNormalImpl(wrapperList, Side.Forge);
+		generateWrapperSingletonImpl(wrapperList, Side.Fabric);
+		generateWrapperSingletonImpl(wrapperList, Side.Forge);
 	}
-	
+
 	private static Reflections createReflections(String[] packages) {
-		ConfigurationBuilder conf = new ConfigurationBuilder()
-				.forPackages(packages)
+		ConfigurationBuilder conf = new ConfigurationBuilder().forPackages(packages)
 				.setUrls(effectiveClassPathUrls(ClasspathHelper.contextClassLoader()))
 				.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner(), new MethodAnnotationsScanner());
 		return new Reflections(conf);
 	}
-	
+
 	/**
 	 * Bypasses some issues with running junit tests in maven.
 	 * https://stackoverflow.com/questions/13576665/
@@ -72,20 +77,21 @@ public class Generator {
 	 * @return
 	 */
 	private static Collection<URL> effectiveClassPathUrls(ClassLoader... classLoaders) {
-	    return ClasspathHelper.forManifest(ClasspathHelper.forClassLoader(classLoaders));
+		return ClasspathHelper.forManifest(ClasspathHelper.forClassLoader(classLoaders));
 	}
-	
+
 	private static void deleteFolder(File folder) {
-		for(File f : folder.listFiles()) {
-			if(f.isDirectory()) {
+		for (File f : folder.listFiles()) {
+			if (f.isDirectory()) {
 				deleteFolder(f);
 			}
 			f.delete();
 		}
 	}
-	
+
 	private static void proccessClass(Class<?> clazz, Side side) throws IOException, FormatterException {
-		String packageName = clazz.getPackage().getName().replace(".api.", side == Side.Fabric ? ".fabric." : ".forge.");
+		String packageName = clazz.getPackage().getName().replace(".api.",
+				side == Side.Fabric ? ".fabric." : ".forge.");
 		File packageFolder = new File(side == Side.Fabric ? fabricGen : forgeGen, packageName.replace(".", "/"));
 		packageFolder.mkdirs();
 		String clazzName = "TRL" + clazz.getSimpleName();
@@ -99,55 +105,110 @@ public class Generator {
 		mapping.put("nmsClassName", nmsClassName);
 		mapping.put("interfaceFullType", interfaceFullType);
 		Set<SimpleAccess> getter = new HashSet<>();
-		for(Method method : clazz.getDeclaredMethods()) {
-			if(method.getParameterCount() == 0) {
-				getter.add(new SimpleAccess(method.getName(),  method.getReturnType().getName(), getName(method.getAnnotation(SimpleMethod.class), side)));
+		for (Method method : clazz.getDeclaredMethods()) {
+			if (method.getParameterCount() == 0 && method.getAnnotation(SimpleMethod.class) != null) {
+				getter.add(new SimpleAccess(method.getName(), method.getReturnType().getName(),
+						getName(method.getAnnotation(SimpleMethod.class), side)));
 			}
 		}
 		mapping.put("simpleGetter", getter);
+		Set<SimpleAccess> fieldGetter = new HashSet<>();
+		for (Method method : clazz.getDeclaredMethods()) {
+			if (method.getParameterCount() == 0 && method.getAnnotation(SimpleField.class) != null) {
+				fieldGetter.add(new SimpleAccess(method.getName(), method.getReturnType().getName(),
+						getName(method.getAnnotation(SimpleField.class), side)));
+			}
+		}
+		mapping.put("fieldGetter", fieldGetter);
 
 		Files.write(outFile.toPath(), generateSimpleWrapper(mapping).getBytes());
 	}
-	
+
 	private static String generateSimpleWrapper(Map<String, Object> mapping) throws FormatterException {
 		MustacheFactory mf = new DefaultMustacheFactory();
-	    Mustache mustache = mf.compile("SimpleWrapperTemplate.mustache");
-		
+		Mustache mustache = mf.compile("SimpleWrapperTemplate.mustache");
+
 		StringWriter writer = new StringWriter();
-	    mustache.execute(writer, mapping);
-	    
-	    String formattedSource = new Formatter().formatSource(writer.toString());
-	    System.out.println(formattedSource);
-	    return formattedSource;
+		mustache.execute(writer, mapping);
+
+		String formattedSource = new Formatter().formatSource(writer.toString());
+		System.out.println(formattedSource);
+		return formattedSource;
 	}
-	
+
 	private static String getName(SimpleWrapper wrapper, Side side) {
 		return side == Side.Fabric ? wrapper.yarn() : wrapper.mcp();
 	}
-	
+
 	private static String getName(SimpleMethod wrapper, Side side) {
 		return side == Side.Fabric ? wrapper.yarn() : wrapper.mcp();
 	}
-	
-	private static void generateWrapperInterface(Set<String> wrappers) throws FormatterException, IOException {
+
+	private static String getName(SimpleField wrapper, Side side) {
+		return side == Side.Fabric ? wrapper.yarn() : wrapper.mcp();
+	}
+
+	private static void generateWrapperInterface(Set<WrapperTarget> wrappers) throws FormatterException, IOException {
 		File packageFolder = new File(coreGen, "dev/tr7zw/transliterationlib/api/wrapper/api");
 		packageFolder.mkdirs();
 		File outFile = new File(packageFolder, "Wrapper.java");
 		MustacheFactory mf = new DefaultMustacheFactory();
-	    Mustache mustache = mf.compile("WrapperInterface.mustache");
-		
-	    Map<String, Object> mapping = new HashMap<String, Object>();
-	    mapping.put("wrappers", wrappers);
-	    
+		Mustache mustache = mf.compile("WrapperInterface.mustache");
+
+		Map<String, Object> mapping = new HashMap<String, Object>();
+		mapping.put("wrappers", wrappers);
+
 		StringWriter writer = new StringWriter();
-	    mustache.execute(writer, mapping);
-	    
-	    String formattedSource = new Formatter().formatSource(writer.toString());
-	    System.out.println(formattedSource);
-	    Files.write(outFile.toPath(), formattedSource.getBytes());
+		mustache.execute(writer, mapping);
+
+		String formattedSource = new Formatter().formatSource(writer.toString());
+		System.out.println(formattedSource);
+		Files.write(outFile.toPath(), formattedSource.getBytes());
+	}
+
+	private static void generateWrapperNormalImpl(Set<WrapperTarget> wrappers, Side side)
+			throws FormatterException, IOException {
+		File packageFolder = new File(side == Side.Fabric ? fabricGen : forgeGen,
+				"dev/tr7zw/transliterationlib/" + (side == Side.Fabric ? "fabric" : "forge") + "/wrapper/api");
+		packageFolder.mkdirs();
+		File outFile = new File(packageFolder, "NormalWrapper.java");
+		MustacheFactory mf = new DefaultMustacheFactory();
+		Mustache mustache = mf.compile("NormalWrapper.mustache");
+
+		Map<String, Object> mapping = new HashMap<String, Object>();
+		mapping.put("wrappers", wrappers);
+		mapping.put("side", side == Side.Fabric ? "fabric" : "forge");
+
+		StringWriter writer = new StringWriter();
+		mustache.execute(writer, mapping);
+
+		String formattedSource = new Formatter().formatSource(writer.toString().replace("{{side}}", (String) mapping.get("side")));
+		System.out.println(formattedSource);
+		Files.write(outFile.toPath(), formattedSource.getBytes());
 	}
 	
-	public static enum Side{
+	private static void generateWrapperSingletonImpl(Set<WrapperTarget> wrappers, Side side)
+			throws FormatterException, IOException {
+		File packageFolder = new File(side == Side.Fabric ? fabricGen : forgeGen,
+				"dev/tr7zw/transliterationlib/" + (side == Side.Fabric ? "fabric" : "forge") + "/wrapper/api");
+		packageFolder.mkdirs();
+		File outFile = new File(packageFolder, "SingletonWrapper.java");
+		MustacheFactory mf = new DefaultMustacheFactory();
+		Mustache mustache = mf.compile("SingletonWrapper.mustache");
+
+		Map<String, Object> mapping = new HashMap<String, Object>();
+		mapping.put("wrappers", wrappers);
+		mapping.put("side", side == Side.Fabric ? "fabric" : "forge");
+
+		StringWriter writer = new StringWriter();
+		mustache.execute(writer, mapping);
+
+		String formattedSource = new Formatter().formatSource(writer.toString().replace("{{side}}", (String) mapping.get("side")));
+		System.out.println(formattedSource);
+		Files.write(outFile.toPath(), formattedSource.getBytes());
+	}
+
+	public static enum Side {
 		Fabric, Forge
 	}
 

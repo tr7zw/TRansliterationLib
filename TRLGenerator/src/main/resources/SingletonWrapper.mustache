@@ -1,4 +1,4 @@
-package dev.tr7zw.transliterationlib.fabric.wrapper.api;
+package dev.tr7zw.transliterationlib.{{side}}.wrapper.api;
 
 import dev.tr7zw.transliterationlib.api.wrapper.entity.BoatEntity;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.ClientPlayer;
@@ -21,32 +21,31 @@ import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i;
 import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
 import dev.tr7zw.transliterationlib.api.wrapper.world.World;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLBoatEntity;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLClientPlayer;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLEntity;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLEntityLiving;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLHorseEntity;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLPlayer;
-import dev.tr7zw.transliterationlib.fabric.wrapper.item.TRLItem;
-import dev.tr7zw.transliterationlib.fabric.wrapper.item.TRLItemStack;
-import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLEntityModel;
-import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLModelPart;
-import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLModelWithArms;
-import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLPlayerEntityModel;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLIdentifier;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLKeybind;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLMatrixStack;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLQuaternion;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3d;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3f;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3i;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVertexConsumerProvider;
-import dev.tr7zw.transliterationlib.fabric.wrapper.world.TRLWorld;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLBoatEntity;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLClientPlayer;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLEntity;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLEntityLiving;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLHorseEntity;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLPlayer;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.item.TRLItem;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.item.TRLItemStack;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.model.TRLEntityModel;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.model.TRLModelPart;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.model.TRLModelWithArms;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.model.TRLPlayerEntityModel;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLIdentifier;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLKeybind;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLMatrixStack;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLQuaternion;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLVector3d;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLVector3f;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLVector3i;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLVertexConsumerProvider;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.world.TRLWorld;
 
 public class SingletonWrapper extends AbstractWrapperBase {
 
 	private final Entity entity = new TRLEntity<>();
-	private final Identifier identifier = new TRLIdentifier();
 	private final ClientPlayer clientPlayer = new TRLClientPlayer<>();
 	private final Player player = new TRLPlayer<>();
 	private final ItemStack itemStack = new TRLItemStack();
@@ -57,22 +56,19 @@ public class SingletonWrapper extends AbstractWrapperBase {
 	private final ModelPart modelPart = new TRLModelPart();
 	private final HorseEntity horseEntity = new TRLHorseEntity<>();
 	private final Vector3f vector3f = new TRLVector3f();
-	private final Quaternion quaternion = new TRLQuaternion();
 	private final MatrixStack matrixStack = new TRLMatrixStack();
 	private final VertexConsumerProvider vertexConsumerProvider = new TRLVertexConsumerProvider();
 	private final ModelWithArms modelWithArms = new TRLModelWithArms<>();
 	private final EntityModel entityModel = new TRLEntityModel<>();
-	private final Keybind keybind = new TRLKeybind();
 	private final TRLWorld world = new TRLWorld();
-	private final Vector3d vector3d = new TRLVector3d();
-	private final Vector3i vector3i = new TRLVector3i();
+    {{#wrappers}}
+    {{#.}}
+    private final {{{returnType}}} {{lowercasedName}} = new {{targetClass}}();
+	{{/.}}
+	{{/wrappers}}
 
 	public Entity getEntity() {
 		return entity;
-	}
-
-	public Identifier getIdentifier() {
-		return identifier;
 	}
 
 	public ClientPlayer getClientPlayer() {
@@ -115,10 +111,6 @@ public class SingletonWrapper extends AbstractWrapperBase {
 		return vector3f;
 	}
 
-	public Quaternion getQuaternion() {
-		return quaternion;
-	}
-
 	public MatrixStack getMatrixStack() {
 		return matrixStack;
 	}
@@ -136,23 +128,17 @@ public class SingletonWrapper extends AbstractWrapperBase {
 	}
 
 	@Override
-	public Keybind getKeybind() {
-		return keybind;
-	}
-
-	@Override
 	public World getWorld() {
 		return world;
 	}
 
-	@Override
-	public Vector3d getVector3d() {
-		return vector3d;
+	{{#wrappers}}
+    {{#.}}
+    @Override
+	public {{{returnType}}} {{name}}() {
+		return {{lowercasedName}};
 	}
-
-	@Override
-	public Vector3i getVector3i() {
-		return vector3i;
-	}
+	{{/.}}
+	{{/wrappers}}
 
 }

@@ -1,4 +1,4 @@
-package dev.tr7zw.transliterationlib.fabric.wrapper.api;
+package dev.tr7zw.transliterationlib.{{side}}.wrapper.api;
 
 import dev.tr7zw.transliterationlib.api.wrapper.entity.BoatEntity;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.ClientPlayer;
@@ -21,38 +21,33 @@ import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i;
 import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
 import dev.tr7zw.transliterationlib.api.wrapper.world.World;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLBoatEntity;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLClientPlayer;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLEntity;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLEntityLiving;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLHorseEntity;
-import dev.tr7zw.transliterationlib.fabric.wrapper.entity.TRLPlayer;
-import dev.tr7zw.transliterationlib.fabric.wrapper.item.TRLItem;
-import dev.tr7zw.transliterationlib.fabric.wrapper.item.TRLItemStack;
-import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLEntityModel;
-import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLModelPart;
-import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLModelWithArms;
-import dev.tr7zw.transliterationlib.fabric.wrapper.model.TRLPlayerEntityModel;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLIdentifier;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLKeybind;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLMatrixStack;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLQuaternion;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3d;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3f;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVector3i;
-import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVertexConsumerProvider;
-import dev.tr7zw.transliterationlib.fabric.wrapper.world.TRLWorld;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLBoatEntity;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLClientPlayer;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLEntity;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLEntityLiving;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLHorseEntity;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.entity.TRLPlayer;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.item.TRLItem;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.item.TRLItemStack;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.model.TRLEntityModel;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.model.TRLModelPart;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.model.TRLModelWithArms;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.model.TRLPlayerEntityModel;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLIdentifier;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLKeybind;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLMatrixStack;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLQuaternion;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLVector3d;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLVector3f;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLVector3i;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.util.TRLVertexConsumerProvider;
+import dev.tr7zw.transliterationlib.{{side}}.wrapper.world.TRLWorld;
 
 public class NormalWrapper extends AbstractWrapperBase {
 
 	@Override
 	public Entity getEntity() {
 		return new TRLEntity<>();
-	}
-
-	@Override
-	public Identifier getIdentifier() {
-		return new TRLIdentifier();
 	}
 
 	@Override
@@ -106,11 +101,6 @@ public class NormalWrapper extends AbstractWrapperBase {
 	}
 
 	@Override
-	public Quaternion getQuaternion() {
-		return new TRLQuaternion();
-	}
-
-	@Override
 	public MatrixStack getMatrixStack() {
 		return new TRLMatrixStack();
 	}
@@ -129,25 +119,19 @@ public class NormalWrapper extends AbstractWrapperBase {
 	public ModelWithArms getModelWithArms() {
 		return new TRLModelWithArms<>();
 	}
-
-	@Override
-	public Keybind getKeybind() {
-		return new TRLKeybind();
-	}
-
+	
 	@Override
 	public World getWorld() {
 		return new TRLWorld();
 	}
 
-	@Override
-	public Vector3d getVector3d() {
-		return new TRLVector3d();
+	{{#wrappers}}
+    {{#.}}
+    @Override
+	public {{{returnType}}} {{name}}() {
+		return new {{targetClass}}();
 	}
-
-	@Override
-	public Vector3i getVector3i() {
-		return new TRLVector3i();
-	}
-
+	{{/.}}
+	{{/wrappers}}
+	
 }

@@ -23,17 +23,16 @@ public interface Wrapper {
 	public PlayerEntityModel getPlayerEntityModel();
 	public HorseEntity getHorseEntity();
 	public Vector3f getVector3f();
-	public Quaternion getQuaternion();
 	public MatrixStack getMatrixStack();
 	public VertexConsumerProvider getVertexConsumerProvider();
 	public EntityModel getEntityModel();
 	public ModelWithArms getModelWithArms();
 	public World getWorld();
-	public Vector3d getVector3d();
-	public Vector3i getVector3i();
-	
+
 	{{#wrappers}}
-	public {{.}}();
+	{{#.}}
+	public {{{returnType}}} {{name}}();
+	{{/.}}
 	{{/wrappers}}
 	
 }
