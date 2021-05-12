@@ -25,6 +25,8 @@ dependencies {
 	
 }
 
+sourceSets.main.java.srcDirs = ['src/generated/java','src/main/java']
+
 publishing {
     publications {
         mavenJava(MavenPublication) {

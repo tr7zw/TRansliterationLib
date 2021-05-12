@@ -31,22 +31,29 @@ import dev.tr7zw.transliterationlib.api.annotations.SimpleWrapper;
 
 public class Generator {
 
+	private static File coreGen = new File("../TRLCore/src/generated/java");
 	private static File fabricGen = new File("../TRLFabric/src/generated/java");
 	private static File forgeGen = new File("../TRLForge/src/generated/java");
 	
 	public static void main(String[] args) throws IOException, FormatterException {
 		fabricGen.mkdirs();
 		forgeGen.mkdirs();
+		coreGen.mkdirs();
 		deleteFolder(fabricGen);
 		deleteFolder(forgeGen);
+		deleteFolder(coreGen);
 		Reflections reflections = createReflections(new String[]{"dev.tr7zw.transliterationlib.api"});
 		Set<Class<?>> allClasses = new HashSet<>();
 		Set<Class<?>> simpleWrapper = reflections.getTypesAnnotatedWith(SimpleWrapper.class);
 		allClasses.addAll(simpleWrapper);
+		Set<String> wrapperList = new HashSet<>();
 		for(Class<?> clazz : simpleWrapper) {
 			proccessClass(clazz, Side.Fabric);
 			proccessClass(clazz, Side.Forge);
+			wrapperList.add(clazz.getName() + " get" + clazz.getSimpleName());
 		}
+		
+		generateWrapperInterface(wrapperList);
 	}
 	
 	private static Reflections createReflections(String[] packages) {
@@ -93,7 +100,7 @@ public class Generator {
 		mapping.put("interfaceFullType", interfaceFullType);
 		Set<SimpleAccess> getter = new HashSet<>();
 		for(Method method : clazz.getDeclaredMethods()) {
-			if(method.getName().startsWith("get")) {
+			if(method.getParameterCount() == 0) {
 				getter.add(new SimpleAccess(method.getName(),  method.getReturnType().getName(), getName(method.getAnnotation(SimpleMethod.class), side)));
 			}
 		}
@@ -120,6 +127,24 @@ public class Generator {
 	
 	private static String getName(SimpleMethod wrapper, Side side) {
 		return side == Side.Fabric ? wrapper.yarn() : wrapper.mcp();
+	}
+	
+	private static void generateWrapperInterface(Set<String> wrappers) throws FormatterException, IOException {
+		File packageFolder = new File(coreGen, "dev/tr7zw/transliterationlib/api/wrapper/api");
+		packageFolder.mkdirs();
+		File outFile = new File(packageFolder, "Wrapper.java");
+		MustacheFactory mf = new DefaultMustacheFactory();
+	    Mustache mustache = mf.compile("WrapperInterface.mustache");
+		
+	    Map<String, Object> mapping = new HashMap<String, Object>();
+	    mapping.put("wrappers", wrappers);
+	    
+		StringWriter writer = new StringWriter();
+	    mustache.execute(writer, mapping);
+	    
+	    String formattedSource = new Formatter().formatSource(writer.toString());
+	    System.out.println(formattedSource);
+	    Files.write(outFile.toPath(), formattedSource.getBytes());
 	}
 	
 	public static enum Side{
