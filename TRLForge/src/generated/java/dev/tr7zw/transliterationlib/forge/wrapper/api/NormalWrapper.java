@@ -1,128 +1,65 @@
 package dev.tr7zw.transliterationlib.forge.wrapper.api;
 
-import dev.tr7zw.transliterationlib.api.wrapper.entity.BoatEntity;
-import dev.tr7zw.transliterationlib.api.wrapper.entity.ClientPlayer;
-import dev.tr7zw.transliterationlib.api.wrapper.entity.Entity;
-import dev.tr7zw.transliterationlib.api.wrapper.entity.HorseEntity;
-import dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity;
-import dev.tr7zw.transliterationlib.api.wrapper.entity.Player;
-import dev.tr7zw.transliterationlib.api.wrapper.item.Item;
-import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
-import dev.tr7zw.transliterationlib.api.wrapper.model.EntityModel;
-import dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart;
-import dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms;
-import dev.tr7zw.transliterationlib.api.wrapper.model.PlayerEntityModel;
-import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
-import dev.tr7zw.transliterationlib.api.wrapper.util.Keybind;
-import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
-import dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion;
-import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d;
-import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
-import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i;
-import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
-import dev.tr7zw.transliterationlib.api.wrapper.world.World;
-import dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLBoatEntity;
-import dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLClientPlayer;
-import dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLEntity;
-import dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLEntityLiving;
-import dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLHorseEntity;
-import dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLPlayer;
-import dev.tr7zw.transliterationlib.forge.wrapper.item.TRLItem;
-import dev.tr7zw.transliterationlib.forge.wrapper.item.TRLItemStack;
-import dev.tr7zw.transliterationlib.forge.wrapper.model.TRLEntityModel;
-import dev.tr7zw.transliterationlib.forge.wrapper.model.TRLModelPart;
-import dev.tr7zw.transliterationlib.forge.wrapper.model.TRLModelWithArms;
-import dev.tr7zw.transliterationlib.forge.wrapper.model.TRLPlayerEntityModel;
-import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLIdentifier;
-import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLKeybind;
-import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLMatrixStack;
-import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLQuaternion;
-import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3d;
-import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3f;
-import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3i;
-import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVertexConsumerProvider;
-import dev.tr7zw.transliterationlib.forge.wrapper.world.TRLWorld;
-
 public class NormalWrapper extends AbstractWrapperBase {
 
   @Override
-  public Entity getEntity() {
-    return new TRLEntity<>();
+  public dev.tr7zw.transliterationlib.api.wrapper.model.PlayerEntityModel getPlayerEntityModel() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.model.TRLPlayerEntityModel();
   }
 
   @Override
-  public ClientPlayer getClientPlayer() {
-    return new TRLClientPlayer<>();
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.Entity getEntity() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLEntity();
   }
 
   @Override
-  public Player getPlayer() {
-    return new TRLPlayer<>();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion getQuaternion() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLQuaternion();
   }
 
   @Override
-  public ItemStack getItemStack() {
-    return new TRLItemStack();
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.HorseEntity getHorseEntity() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLHorseEntity();
   }
 
   @Override
-  public Item getItem() {
-    return new TRLItem();
+  public dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms getModelWithArms() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.model.TRLModelWithArms();
   }
 
   @Override
-  public LivingEntity getLivingEntity() {
-    return new TRLEntityLiving<>();
+  public dev.tr7zw.transliterationlib.api.wrapper.model.EntityModel getEntityModel() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.model.TRLEntityModel();
   }
 
   @Override
-  public BoatEntity getBoatEntity() {
-    return new TRLBoatEntity<>();
+  public dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart getModelPart() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.model.TRLModelPart();
   }
 
   @Override
-  public ModelPart getModelPart() {
-    return new TRLModelPart();
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.BoatEntity getBoatEntity() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLBoatEntity();
   }
 
   @Override
-  public PlayerEntityModel getPlayerEntityModel() {
-    return new TRLPlayerEntityModel<>();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack getMatrixStack() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLMatrixStack();
   }
 
   @Override
-  public HorseEntity getHorseEntity() {
-    return new TRLHorseEntity<>();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f getVector3f() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3f();
   }
 
   @Override
-  public Vector3f getVector3f() {
-    return new TRLVector3f();
+  public dev.tr7zw.transliterationlib.api.wrapper.world.World getWorld() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.world.TRLWorld();
   }
 
   @Override
-  public MatrixStack getMatrixStack() {
-    return new TRLMatrixStack();
-  }
-
-  @Override
-  public VertexConsumerProvider getVertexConsumerProvider() {
-    return new TRLVertexConsumerProvider();
-  }
-
-  @Override
-  public EntityModel getEntityModel() {
-    return new TRLEntityModel<>();
-  }
-
-  @Override
-  public ModelWithArms getModelWithArms() {
-    return new TRLModelWithArms<>();
-  }
-
-  @Override
-  public World getWorld() {
-    return new TRLWorld();
+  public dev.tr7zw.transliterationlib.api.wrapper.item.Item getItem() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.item.TRLItem();
   }
 
   @Override
@@ -131,13 +68,29 @@ public class NormalWrapper extends AbstractWrapperBase {
   }
 
   @Override
+  public dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider
+      getVertexConsumerProvider() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVertexConsumerProvider();
+  }
+
+  @Override
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.ClientPlayer getClientPlayer() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLClientPlayer();
+  }
+
+  @Override
   public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d getVector3d() {
     return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3d();
   }
 
   @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.util.Identifier getIdentifier() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLIdentifier();
+  public dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack getItemStack() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.item.TRLItemStack();
+  }
+
+  @Override
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity getLivingEntity() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLLivingEntity();
   }
 
   @Override
@@ -146,7 +99,12 @@ public class NormalWrapper extends AbstractWrapperBase {
   }
 
   @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion getQuaternion() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLQuaternion();
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.Player getPlayer() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLPlayer();
+  }
+
+  @Override
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Identifier getIdentifier() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLIdentifier();
   }
 }

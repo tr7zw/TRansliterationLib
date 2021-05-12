@@ -15,12 +15,12 @@ public class TRLVector3i
   }
 
   @Override
-  public int getZ() {
-    return handle().getZ();
+  public int getX() {
+    return handle().getX();
   }
 
   @Override
-  public int getX() {
-    return handle().getX();
+  public int getZ() {
+    return handle().getZ();
   }
 }

@@ -1,10 +1,7 @@
 package dev.tr7zw.transliterationlib.api.wrapper.api;
 
 import dev.tr7zw.transliterationlib.api.wrapper.entity.*;
-import dev.tr7zw.transliterationlib.api.wrapper.item.*;
 import dev.tr7zw.transliterationlib.api.wrapper.model.*;
-import dev.tr7zw.transliterationlib.api.wrapper.util.*;
-import dev.tr7zw.transliterationlib.api.wrapper.world.*;
 
 public interface Wrapper {
 
@@ -14,45 +11,46 @@ public interface Wrapper {
 
   public EntityModel getBestMatchingEntityModel(Object entityModel);
 
-  public Entity getEntity();
+  public dev.tr7zw.transliterationlib.api.wrapper.model.PlayerEntityModel getPlayerEntityModel();
 
-  public LivingEntity getLivingEntity();
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.Entity getEntity();
 
-  public ClientPlayer getClientPlayer();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion getQuaternion();
 
-  public Player getPlayer();
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.HorseEntity getHorseEntity();
 
-  public ItemStack getItemStack();
+  public dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms getModelWithArms();
 
-  public Item getItem();
+  public dev.tr7zw.transliterationlib.api.wrapper.model.EntityModel getEntityModel();
 
-  public BoatEntity getBoatEntity();
+  public dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart getModelPart();
 
-  public ModelPart getModelPart();
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.BoatEntity getBoatEntity();
 
-  public PlayerEntityModel getPlayerEntityModel();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack getMatrixStack();
 
-  public HorseEntity getHorseEntity();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f getVector3f();
 
-  public Vector3f getVector3f();
+  public dev.tr7zw.transliterationlib.api.wrapper.world.World getWorld();
 
-  public MatrixStack getMatrixStack();
-
-  public VertexConsumerProvider getVertexConsumerProvider();
-
-  public EntityModel getEntityModel();
-
-  public ModelWithArms getModelWithArms();
-
-  public World getWorld();
+  public dev.tr7zw.transliterationlib.api.wrapper.item.Item getItem();
 
   public dev.tr7zw.transliterationlib.api.wrapper.util.Keybind getKeybind();
 
+  public dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider
+      getVertexConsumerProvider();
+
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.ClientPlayer getClientPlayer();
+
   public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d getVector3d();
 
-  public dev.tr7zw.transliterationlib.api.wrapper.util.Identifier getIdentifier();
+  public dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack getItemStack();
+
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity getLivingEntity();
 
   public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i getVector3i();
 
-  public dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion getQuaternion();
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.Player getPlayer();
+
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Identifier getIdentifier();
 }

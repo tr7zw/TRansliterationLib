@@ -15,12 +15,12 @@ public class TRLVector3d
   }
 
   @Override
-  public double getZ() {
-    return handle().z;
+  public double getY() {
+    return handle().y;
   }
 
   @Override
-  public double getY() {
-    return handle().y;
+  public double getZ() {
+    return handle().z;
   }
 }

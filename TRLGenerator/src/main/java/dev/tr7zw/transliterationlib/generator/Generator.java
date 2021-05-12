@@ -26,6 +26,7 @@ import com.github.mustachejava.MustacheFactory;
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
 
+import dev.tr7zw.transliterationlib.api.annotations.AddToWrapper;
 import dev.tr7zw.transliterationlib.api.annotations.SimpleField;
 import dev.tr7zw.transliterationlib.api.annotations.SimpleMethod;
 import dev.tr7zw.transliterationlib.api.annotations.SimpleWrapper;
@@ -51,6 +52,11 @@ public class Generator {
 		for (Class<?> clazz : simpleWrapper) {
 			proccessClass(clazz, Side.Fabric);
 			proccessClass(clazz, Side.Forge);
+			wrapperList.add(new WrapperTarget(" get" + clazz.getSimpleName(), clazz.getName(), clazz.getName()
+					.replace(clazz.getSimpleName(), "TRL" + clazz.getSimpleName()).replace(".api.", ".{{side}}.")));
+		}
+		Set<Class<?>> addToWrapper = reflections.getTypesAnnotatedWith(AddToWrapper.class);
+		for (Class<?> clazz : addToWrapper) {
 			wrapperList.add(new WrapperTarget(" get" + clazz.getSimpleName(), clazz.getName(), clazz.getName()
 					.replace(clazz.getSimpleName(), "TRL" + clazz.getSimpleName()).replace(".api.", ".{{side}}.")));
 		}
