@@ -10,13 +10,13 @@ public class TRLVector3d
     implements dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d {
 
   @Override
-  public double getX() {
-    return handle().x;
+  public double getY() {
+    return handle().y;
   }
 
   @Override
-  public double getY() {
-    return handle().y;
+  public double getX() {
+    return handle().x;
   }
 
   @Override

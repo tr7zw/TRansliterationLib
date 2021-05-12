@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ import com.google.googlejavaformat.java.FormatterException;
 import dev.tr7zw.transliterationlib.api.annotations.AddToWrapper;
 import dev.tr7zw.transliterationlib.api.annotations.SimpleField;
 import dev.tr7zw.transliterationlib.api.annotations.SimpleMethod;
+import dev.tr7zw.transliterationlib.api.annotations.SimplePassthroughMethod;
 import dev.tr7zw.transliterationlib.api.annotations.SimpleWrapper;
 
 public class Generator {
@@ -113,21 +115,60 @@ public class Generator {
 		Set<SimpleAccess> getter = new HashSet<>();
 		for (Method method : clazz.getDeclaredMethods()) {
 			if (method.getParameterCount() == 0 && method.getAnnotation(SimpleMethod.class) != null) {
-				getter.add(new SimpleAccess(method.getName(), method.getReturnType().getName(),
-						getName(method.getAnnotation(SimpleMethod.class), side)));
+				getter.add(new SimpleAccess(method.getReturnType() != void.class, method.getName(),
+						method.getReturnType().getName(), getName(method.getAnnotation(SimpleMethod.class), side)));
 			}
 		}
 		mapping.put("simpleGetter", getter);
 		Set<SimpleAccess> fieldGetter = new HashSet<>();
 		for (Method method : clazz.getDeclaredMethods()) {
 			if (method.getParameterCount() == 0 && method.getAnnotation(SimpleField.class) != null) {
-				fieldGetter.add(new SimpleAccess(method.getName(), method.getReturnType().getName(),
-						getName(method.getAnnotation(SimpleField.class), side)));
+				fieldGetter.add(new SimpleAccess(method.getReturnType() != void.class, method.getName(),
+						method.getReturnType().getName(), getName(method.getAnnotation(SimpleField.class), side)));
 			}
 		}
 		mapping.put("fieldGetter", fieldGetter);
+		Set<SimpleAccess> simplePassthrough = new HashSet<>();
+		for (Method method : clazz.getDeclaredMethods()) {
+			if (method.getAnnotation(SimplePassthroughMethod.class) != null) {
+				simplePassthrough.add(new SimpleAccess(method.getReturnType() != void.class, method.getName(),
+						method.getReturnType().getName(),
+						getName(method.getAnnotation(SimplePassthroughMethod.class), side),
+						getMethodParameters(method.getParameters()), getCallParameters(method.getParameters(), side)));
+			}
+		}
+		mapping.put("simplePassthrough", simplePassthrough);
 
 		Files.write(outFile.toPath(), generateSimpleWrapper(mapping).getBytes());
+	}
+
+	private static String getMethodParameters(Parameter[] parms) {
+		StringBuilder str = new StringBuilder();
+		for (Parameter p : parms) {
+			if (str.length() != 0) {
+				str.append(", ");
+			}
+			str.append(p.getType().getName() + " " + p.getName());
+		}
+		return str.toString();
+	}
+
+	private static String getCallParameters(Parameter[] parms, Side side) {
+		StringBuilder str = new StringBuilder();
+		for (Parameter p : parms) {
+			if (str.length() != 0) {
+				str.append(", ");
+			}
+			if (p.getType().getName().startsWith("dev.tr7zw")) {
+				str.append("(("
+						+ p.getType().getName().replace(".api.", side == Side.Fabric ? ".fabric." : ".forge.")
+								.replace(p.getType().getSimpleName(), "TRL" + p.getType().getSimpleName())
+						+ ")" + p.getName() + ").handle()");
+			} else {
+				str.append(p.getName());
+			}
+		}
+		return str.toString();
 	}
 
 	private static String generateSimpleWrapper(Map<String, Object> mapping) throws FormatterException {
@@ -151,6 +192,10 @@ public class Generator {
 	}
 
 	private static String getName(SimpleField wrapper, Side side) {
+		return side == Side.Fabric ? wrapper.yarn() : wrapper.mcp();
+	}
+
+	private static String getName(SimplePassthroughMethod wrapper, Side side) {
 		return side == Side.Fabric ? wrapper.yarn() : wrapper.mcp();
 	}
 
@@ -188,11 +233,12 @@ public class Generator {
 		StringWriter writer = new StringWriter();
 		mustache.execute(writer, mapping);
 
-		String formattedSource = new Formatter().formatSource(writer.toString().replace("{{side}}", (String) mapping.get("side")));
+		String formattedSource = new Formatter()
+				.formatSource(writer.toString().replace("{{side}}", (String) mapping.get("side")));
 		System.out.println(formattedSource);
 		Files.write(outFile.toPath(), formattedSource.getBytes());
 	}
-	
+
 	private static void generateWrapperSingletonImpl(Set<WrapperTarget> wrappers, Side side)
 			throws FormatterException, IOException {
 		File packageFolder = new File(side == Side.Fabric ? fabricGen : forgeGen,
@@ -209,7 +255,8 @@ public class Generator {
 		StringWriter writer = new StringWriter();
 		mustache.execute(writer, mapping);
 
-		String formattedSource = new Formatter().formatSource(writer.toString().replace("{{side}}", (String) mapping.get("side")));
+		String formattedSource = new Formatter()
+				.formatSource(writer.toString().replace("{{side}}", (String) mapping.get("side")));
 		System.out.println(formattedSource);
 		Files.write(outFile.toPath(), formattedSource.getBytes());
 	}

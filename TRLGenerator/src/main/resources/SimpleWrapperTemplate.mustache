@@ -10,7 +10,7 @@ public class {{name}} extends AbstractWrapper<{{nmsClassName}}, {{name}}, {{inte
 	{{#.}}
 	@Override
 	public {{{returnType}}} {{name}}(){
-		return handle().{{method}}();
+		{{#returning}}return {{/returning}}handle().{{method}}();
 	}
 	
 	{{/.}}
@@ -20,10 +20,19 @@ public class {{name}} extends AbstractWrapper<{{nmsClassName}}, {{name}}, {{inte
 	{{#.}}
 	@Override
 	public {{{returnType}}} {{name}}(){
-		return handle().{{method}};
+		{{#returning}}return {{/returning}}handle().{{method}};
 	}
 	
 	{{/.}}
 	{{/fieldGetter}}
 
+	{{#simplePassthrough}}
+	{{#.}}
+	@Override
+	public {{{returnType}}} {{name}}({{argsDef}}){
+		{{#returning}}return {{/returning}}handle().{{method}}({{params}});
+	}
+	
+	{{/.}}
+	{{/simplePassthrough}}
 }
