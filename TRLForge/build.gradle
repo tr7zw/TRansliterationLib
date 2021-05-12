@@ -74,6 +74,7 @@ configurations {
     extraLibs
 }
 
+sourceSets.main.java.srcDirs = ['src/generated/java','src/main/java']
 
 dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed

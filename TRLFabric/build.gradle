@@ -60,6 +60,8 @@ dependencies {
 	compile project(':TRLCore')
 }
 
+sourceSets.main.java.srcDirs = ['src/generated/java','src/main/java']
+
 processResources {
 	inputs.property "version", project.version
 
