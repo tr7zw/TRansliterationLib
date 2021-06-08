@@ -1,7 +1,9 @@
 package dev.tr7zw.transliterationlib.api.wrapper.model;
 
+import dev.tr7zw.transliterationlib.api.annotations.AddToWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.HandleHolder;
 
+@AddToWrapper
 public interface ModelPart extends HandleHolder<ModelPart> {
 
 	public float getPitch();

@@ -8,8 +8,10 @@ public class TRansliterationLibMod implements ModInitializer {
 	
 	@Override
 	public void onInitialize() {
+		System.out.println("Loading TRansliterationLib");
 		TRansliterationLib.transliteration = new TRansliterationLibAPIImpl();
 		APIEvent.LOADED.invoker().run();
+		System.out.println("Loaded TRansliterationLib");
 	}
 
 	   

@@ -1,7 +1,9 @@
 package dev.tr7zw.transliterationlib.api.wrapper.util;
 
+import dev.tr7zw.transliterationlib.api.annotations.AddToWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.HandleHolder;
 
+@AddToWrapper
 public interface Vector3f extends HandleHolder<Vector3f> {
 
 	public Vector3f getPositiveX();

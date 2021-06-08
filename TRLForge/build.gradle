@@ -65,7 +65,12 @@ repositories{
     jcenter()
     mavenCentral()
     maven {url = 'https://files.minecraftforge.net/maven'}
-
+    maven { url = 'https://libraries.minecraft.net/' }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
+    }
 }
 
 
@@ -74,6 +79,7 @@ configurations {
     extraLibs
 }
 
+sourceSets.main.java.srcDirs = ['src/generated/java','src/main/java']
 
 dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed

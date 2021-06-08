@@ -1,0 +1,18 @@
+package dev.tr7zw.transliterationlib.api.wrapper.api;
+
+import dev.tr7zw.transliterationlib.api.wrapper.entity.*;
+import dev.tr7zw.transliterationlib.api.wrapper.model.*;
+
+public interface Wrapper {
+
+	public Entity getBestMatchingEntityWrapper(Object entity);
+	public LivingEntity getBestMatchingLivingEntityWrapper(Object entity);
+	public EntityModel getBestMatchingEntityModel(Object entityModel);
+
+	{{#wrappers}}
+	{{#.}}
+	public {{{returnType}}} {{name}}();
+	{{/.}}
+	{{/wrappers}}
+	
+}

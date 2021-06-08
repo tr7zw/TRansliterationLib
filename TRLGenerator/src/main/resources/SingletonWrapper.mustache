@@ -1,0 +1,20 @@
+package dev.tr7zw.transliterationlib.{{side}}.wrapper.api;
+
+public class SingletonWrapper extends AbstractWrapperBase {
+
+    {{#wrappers}}
+    {{#.}}
+    private final {{{returnType}}} {{lowercasedName}} = new {{targetClass}}();
+	{{/.}}
+	{{/wrappers}}
+
+	{{#wrappers}}
+    {{#.}}
+    @Override
+	public {{{returnType}}} {{name}}() {
+		return {{lowercasedName}};
+	}
+	{{/.}}
+	{{/wrappers}}
+
+}

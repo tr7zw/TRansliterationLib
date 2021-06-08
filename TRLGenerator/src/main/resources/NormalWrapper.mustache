@@ -1,0 +1,14 @@
+package dev.tr7zw.transliterationlib.{{side}}.wrapper.api;
+
+public class NormalWrapper extends AbstractWrapperBase {
+
+	{{#wrappers}}
+    {{#.}}
+    @Override
+	public {{{returnType}}} {{name}}() {
+		return new {{targetClass}}();
+	}
+	{{/.}}
+	{{/wrappers}}
+	
+}
