@@ -14,6 +14,7 @@
   "license": "MIT",
   "icon": "assets/transliterationlib/icon.png",
   "environment": "client",
+  "accessWidener" : "transliteration.accesswidener",
   "entrypoints": {
     "main": [
       "dev.tr7zw.transliterationlib.fabric.TRansliterationLibMod"

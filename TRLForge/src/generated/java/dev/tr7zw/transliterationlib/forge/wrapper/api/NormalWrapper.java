@@ -3,8 +3,8 @@ package dev.tr7zw.transliterationlib.forge.wrapper.api;
 public class NormalWrapper extends AbstractWrapperBase {
 
   @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i getVector3i() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3i();
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.ClientPlayer getClientPlayer() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLClientPlayer();
   }
 
   @Override
@@ -13,18 +13,38 @@ public class NormalWrapper extends AbstractWrapperBase {
   }
 
   @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.entity.Player getPlayer() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLPlayer();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f getVector3f() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3f();
   }
 
   @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms getModelWithArms() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.model.TRLModelWithArms();
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity getLivingEntity() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLLivingEntity();
+  }
+
+  @Override
+  public dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack getMatrixStack() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLMatrixStack();
   }
 
   @Override
   public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d getVector3d() {
     return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3d();
+  }
+
+  @Override
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.Player getPlayer() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLPlayer();
+  }
+
+  @Override
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Identifier getIdentifier() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLIdentifier();
+  }
+
+  @Override
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i getVector3i() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3i();
   }
 
   @Override
@@ -38,28 +58,8 @@ public class NormalWrapper extends AbstractWrapperBase {
   }
 
   @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion getQuaternion() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLQuaternion();
-  }
-
-  @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.entity.BoatEntity getBoatEntity() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLBoatEntity();
-  }
-
-  @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.world.World getWorld() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.world.TRLWorld();
-  }
-
-  @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack getMatrixStack() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLMatrixStack();
-  }
-
-  @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f getVector3f() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVector3f();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Keybind getKeybind() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLKeybind();
   }
 
   @Override
@@ -73,29 +73,24 @@ public class NormalWrapper extends AbstractWrapperBase {
   }
 
   @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.util.Keybind getKeybind() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLKeybind();
-  }
-
-  @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.util.Identifier getIdentifier() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLIdentifier();
-  }
-
-  @Override
   public dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider
       getVertexConsumerProvider() {
     return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVertexConsumerProvider();
   }
 
   @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart getModelPart() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.model.TRLModelPart();
+  public dev.tr7zw.transliterationlib.api.wrapper.entity.BoatEntity getBoatEntity() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLBoatEntity();
   }
 
   @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity getLivingEntity() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLLivingEntity();
+  public dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms getModelWithArms() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.model.TRLModelWithArms();
+  }
+
+  @Override
+  public dev.tr7zw.transliterationlib.api.wrapper.world.World getWorld() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.world.TRLWorld();
   }
 
   @Override
@@ -104,7 +99,12 @@ public class NormalWrapper extends AbstractWrapperBase {
   }
 
   @Override
-  public dev.tr7zw.transliterationlib.api.wrapper.entity.ClientPlayer getClientPlayer() {
-    return new dev.tr7zw.transliterationlib.forge.wrapper.entity.TRLClientPlayer();
+  public dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion getQuaternion() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.util.TRLQuaternion();
+  }
+
+  @Override
+  public dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart getModelPart() {
+    return new dev.tr7zw.transliterationlib.forge.wrapper.model.TRLModelPart();
   }
 }

@@ -10,13 +10,13 @@ public class TRLVector3i
     implements dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i {
 
   @Override
-  public int getZ() {
-    return handle().getZ();
+  public int getY() {
+    return handle().getY();
   }
 
   @Override
-  public int getY() {
-    return handle().getY();
+  public int getZ() {
+    return handle().getZ();
   }
 
   @Override

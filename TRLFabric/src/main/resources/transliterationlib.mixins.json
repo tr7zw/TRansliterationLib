@@ -1,17 +1,17 @@
 {
   "required": true,
   "package": "dev.tr7zw.transliterationlib.fabric.mixins",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_16",
   "mixins": [
+
+  ],
+  "client": [
     "PlayerSkinProviderMixin",
     "AbstractClientPlayerEntityMixin",
     "DefaultSkinHelperMixin",
     "PlayerEntityMixin",
     "PlayerEntityModelMixin",
     "HeldItemFeatureRendererMixin"
-  ],
-  "client": [
-    
   ],
   "injectors": {
     "defaultRequire": 1
