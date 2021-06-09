@@ -23,7 +23,7 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.spongepowered/mixin
 	compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.4.4', transitive:false
 	
-	implementation group: 'net.oneandone.reflections8', name: 'reflections8', version: '0.11.5'
+	implementation group: 'net.oneandone.reflections8', name: 'reflections8', version: '0.11.7'
 
 	// https://mvnrepository.com/artifact/com.github.spullara.mustache.java/mustache.java
 	implementation group: 'com.github.spullara.mustache.java', name: 'compiler', version: '0.9.7'
