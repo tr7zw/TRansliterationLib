@@ -28,7 +28,7 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.github.spullara.mustache.java/mustache.java
 	implementation group: 'com.github.spullara.mustache.java', name: 'compiler', version: '0.9.7'
 
-	implementation 'com.google.googlejavaformat:google-java-format:1.7'
+	implementation 'com.google.googlejavaformat:google-java-format:1.10.0'
 
 	implementation project(':TRLCore')
 }
