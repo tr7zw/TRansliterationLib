@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import dev.tr7zw.transliterationlib.api.event.PlayerEvents;
 import dev.tr7zw.transliterationlib.api.wrapper.util.WrappedCallbackInfoReturnable;
 import net.minecraft.client.resources.DefaultPlayerSkin;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 @Mixin(DefaultPlayerSkin.class)
 public class DefaultSkinHelperMixin {

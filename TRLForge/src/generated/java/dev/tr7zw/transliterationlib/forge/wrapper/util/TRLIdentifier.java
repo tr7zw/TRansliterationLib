@@ -4,7 +4,7 @@ import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
 
 public class TRLIdentifier
     extends AbstractWrapper<
-        net.minecraft.util.ResourceLocation,
+        net.minecraft.resources.ResourceLocation,
         TRLIdentifier,
         dev.tr7zw.transliterationlib.api.wrapper.util.Identifier>
     implements dev.tr7zw.transliterationlib.api.wrapper.util.Identifier {

@@ -1,40 +1,40 @@
 package dev.tr7zw.transliterationlib.forge.wrapper.model;
 
 import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
-import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.model.geom.ModelPart;
 
 public class TRLModelPart
-		extends AbstractWrapper<ModelRenderer, TRLModelPart, dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart>
+		extends AbstractWrapper<ModelPart, TRLModelPart, dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart>
 		implements dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart {
 
 	@Override
 	public float getPitch() {
-		return handle().rotateAngleX;
+		return handle().xRot;
 	}
 
 	@Override
 	public float getYaw() {
-		return handle().rotateAngleY;
+		return handle().yRot;
 	}
 
 	@Override
 	public float getRoll() {
-		return handle().rotateAngleZ;
+		return handle().zRot;
 	}
 
 	@Override
 	public void setPitch(float value) {
-		handle().rotateAngleX = value;
+		handle().xRot = value;
 	}
 
 	@Override
 	public void setYaw(float value) {
-		handle().rotateAngleY = value;
+		handle().yRot = value;
 	}
 
 	@Override
 	public void setRoll(float value) {
-		handle().rotateAngleZ = value;
+		handle().zRot = value;
 	}
 
 }

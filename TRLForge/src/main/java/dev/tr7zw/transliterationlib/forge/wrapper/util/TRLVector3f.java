@@ -1,8 +1,9 @@
 package dev.tr7zw.transliterationlib.forge.wrapper.util;
 
+import com.mojang.math.Vector3f;
+
 import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
 
 public class TRLVector3f
 		extends AbstractWrapper<Vector3f, TRLVector3f, dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f>
@@ -35,17 +36,17 @@ public class TRLVector3f
 
 	@Override
 	public float getX() {
-		return handle().getX();
+		return handle().x();
 	}
 
 	@Override
 	public float getY() {
-		return handle().getY();
+		return handle().y();
 	}
 
 	@Override
 	public float getZ() {
-		return handle().getZ();
+		return handle().z();
 	}
 
 }

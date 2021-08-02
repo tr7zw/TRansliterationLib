@@ -13,6 +13,6 @@ rootProject.name = 'TRansliterationLib'
 
 include 'TRLCore'
 include 'TRLFabric'
-//include 'TRLForge'
+include 'TRLForge'
 include 'TRLCombined'
 include 'TRLGenerator'

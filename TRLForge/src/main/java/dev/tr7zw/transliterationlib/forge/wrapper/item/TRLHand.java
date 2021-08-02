@@ -1,15 +1,16 @@
 package dev.tr7zw.transliterationlib.forge.wrapper.item;
 
 import dev.tr7zw.transliterationlib.api.wrapper.item.Hand;
+import net.minecraft.world.InteractionHand;
 
 public class TRLHand implements Hand{
 
-	public static TRLHand mainHand = new TRLHand(net.minecraft.util.Hand.MAIN_HAND);
-	public static TRLHand offHand = new TRLHand(net.minecraft.util.Hand.OFF_HAND);
+	public static TRLHand mainHand = new TRLHand(InteractionHand.MAIN_HAND);
+	public static TRLHand offHand = new TRLHand(InteractionHand.OFF_HAND);
 	
-	private final net.minecraft.util.Hand handle;
+	private final InteractionHand handle;
 	
-	private TRLHand(net.minecraft.util.Hand hand) {
+	private TRLHand(InteractionHand hand) {
 		this.handle = hand;
 	}
 	
@@ -35,7 +36,7 @@ public class TRLHand implements Hand{
 
 	@Override
 	public Hand of(Object handler) {
-		if(handler == net.minecraft.util.Hand.MAIN_HAND) {
+		if(handler == InteractionHand.MAIN_HAND) {
 			return mainHand;
 		}else {
 			return offHand;

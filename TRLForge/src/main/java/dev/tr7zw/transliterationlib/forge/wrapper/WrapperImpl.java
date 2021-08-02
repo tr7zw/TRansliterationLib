@@ -3,6 +3,8 @@ package dev.tr7zw.transliterationlib.forge.wrapper;
 import java.util.function.BiConsumer;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
 
 import dev.tr7zw.transliterationlib.api.config.WrappedConfigEntry;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
@@ -16,23 +18,21 @@ import dev.tr7zw.transliterationlib.forge.RenderPhaseAlternative;
 import dev.tr7zw.transliterationlib.forge.wrapper.item.TRLItemStack;
 import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLMatrixStack;
 import dev.tr7zw.transliterationlib.forge.wrapper.util.TRLVertexConsumerProvider;
-import me.shedaniel.clothconfig2.forge.api.AbstractConfigEntry;
-import me.shedaniel.clothconfig2.forge.gui.entries.EnumListEntry;
-import me.shedaniel.clothconfig2.forge.gui.entries.IntegerSliderEntry;
+import me.shedaniel.clothconfig2.api.AbstractConfigEntry;
+import me.shedaniel.clothconfig2.gui.entries.EnumListEntry;
+import me.shedaniel.clothconfig2.gui.entries.IntegerSliderEntry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.FilledMapItem;
-import net.minecraft.network.play.server.SEntityMetadataPacket;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.text.TextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.storage.MapData;
 
 public class WrapperImpl implements OldWrapper{
@@ -65,7 +65,7 @@ public class WrapperImpl implements OldWrapper{
 
 	@Override
 	public WrappedText getTranslateableText(String text) {
-		return wrapText(new TranslationTextComponent(text));
+		return wrapText(new TranslatableComponent(text));
 	}
 
 	@Override
@@ -156,7 +156,7 @@ public class WrapperImpl implements OldWrapper{
 	public WrappedEntityTrackerUpdate wrapEntityTrackerUpdatePacket(Object packet) {
 		return new WrappedEntityTrackerUpdate() {
 			
-			private SEntityMetadataPacket sPacket = (SEntityMetadataPacket) packet;
+			private ClientboundSetEntityDataPacket sPacket = (ClientboundSetEntityDataPacket) packet;
 			
 			@Override
 			public Object getHandler() {
@@ -165,18 +165,18 @@ public class WrapperImpl implements OldWrapper{
 			
 			@Override
 			public int id() {
-				return sPacket.getEntityId();
+				return sPacket.getId();
 			}
 			
 			@Override
 			public boolean hasTrackedValues() {
-				return sPacket.getDataManagerEntries() != null;
+				return sPacket.getUnpackedData() != null;
 			}
 			
 			@Override
 			public void forEach(BiConsumer<Integer, Object> handler) {
-				sPacket.getDataManagerEntries().forEach(entry -> {
-					handler.accept(entry.getKey().getId(), entry.getValue());
+				sPacket.getUnpackedData().forEach(entry -> {
+					handler.accept(entry.getAccessor().getId(), entry.getValue());
 				});
 			}
 		};

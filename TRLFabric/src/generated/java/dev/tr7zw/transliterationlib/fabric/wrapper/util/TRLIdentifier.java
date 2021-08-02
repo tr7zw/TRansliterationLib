@@ -10,12 +10,12 @@ public class TRLIdentifier
     implements dev.tr7zw.transliterationlib.api.wrapper.util.Identifier {
 
   @Override
-  public java.lang.String getNamespace() {
-    return handle().getNamespace();
+  public java.lang.String getId() {
+    return handle().getPath();
   }
 
   @Override
-  public java.lang.String getId() {
-    return handle().getPath();
+  public java.lang.String getNamespace() {
+    return handle().getNamespace();
   }
 }

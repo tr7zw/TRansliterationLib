@@ -9,14 +9,14 @@ import dev.tr7zw.transliterationlib.api.config.ConfigBuilder.ConfigEntryBuilder.
 import dev.tr7zw.transliterationlib.api.config.WrappedConfigEntry;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedScreen;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedText;
-import me.shedaniel.clothconfig2.forge.api.AbstractConfigListEntry;
-import me.shedaniel.clothconfig2.forge.impl.builders.BooleanToggleBuilder;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.util.text.TextComponent;
+import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
+import me.shedaniel.clothconfig2.impl.builders.BooleanToggleBuilder;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.TextComponent;
 
 public class ConfigBuilderImpl implements ConfigBuilder {
 
-	private me.shedaniel.clothconfig2.forge.api.ConfigBuilder builder = me.shedaniel.clothconfig2.forge.api.ConfigBuilder.create();
+	private me.shedaniel.clothconfig2.api.ConfigBuilder builder = me.shedaniel.clothconfig2.api.ConfigBuilder.create();
 	
 	@Override
 	public WrappedScreen build() {
@@ -59,9 +59,9 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 
 	private class ForgeConfigEntryBuilder implements ConfigEntryBuilder {
 
-		private final me.shedaniel.clothconfig2.forge.api.ConfigEntryBuilder builder;
+		private final me.shedaniel.clothconfig2.api.ConfigEntryBuilder builder;
 		
-		public ForgeConfigEntryBuilder(me.shedaniel.clothconfig2.forge.api.ConfigEntryBuilder builder) {
+		public ForgeConfigEntryBuilder(me.shedaniel.clothconfig2.api.ConfigEntryBuilder builder) {
 			this.builder = builder;
 		}
 
@@ -72,10 +72,10 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 	
 		private class ForgeEnumSelectorBuilder<T extends Enum<?>> implements EnumSelectorBuilder<T>{
 
-			me.shedaniel.clothconfig2.forge.impl.builders.EnumSelectorBuilder<T> builder;
+			me.shedaniel.clothconfig2.impl.builders.EnumSelectorBuilder<T> builder;
 			
 			public ForgeEnumSelectorBuilder(
-					me.shedaniel.clothconfig2.forge.impl.builders.EnumSelectorBuilder<T> startEnumSelector) {
+					me.shedaniel.clothconfig2.impl.builders.EnumSelectorBuilder<T> startEnumSelector) {
 				this.builder = startEnumSelector;
 			}
 
@@ -157,9 +157,9 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 		
 		private class ForgeIntSliderBuilder implements IntSliderBuilder{
 
-			private me.shedaniel.clothconfig2.forge.impl.builders.IntSliderBuilder builder;
+			private me.shedaniel.clothconfig2.impl.builders.IntSliderBuilder builder;
 			
-			public ForgeIntSliderBuilder(me.shedaniel.clothconfig2.forge.impl.builders.IntSliderBuilder builder) {
+			public ForgeIntSliderBuilder(me.shedaniel.clothconfig2.impl.builders.IntSliderBuilder builder) {
 				this.builder = builder;
 			}
 
@@ -192,9 +192,9 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 	
 	private class ForgeConfigCategory implements ConfigCategory{
 
-		private me.shedaniel.clothconfig2.forge.api.ConfigCategory category;
+		private me.shedaniel.clothconfig2.api.ConfigCategory category;
 		
-		public ForgeConfigCategory(me.shedaniel.clothconfig2.forge.api.ConfigCategory category) {
+		public ForgeConfigCategory(me.shedaniel.clothconfig2.api.ConfigCategory category) {
 			this.category = category;
 		}
 

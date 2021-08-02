@@ -4,7 +4,7 @@ import dev.tr7zw.transliterationlib.api.annotations.SimpleField;
 import dev.tr7zw.transliterationlib.api.annotations.SimpleWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.HandleHolder;
 
-@SimpleWrapper(yarn = "net.minecraft.util.math.Vec3d", mcp = "net.minecraft.util.math.vector.Vector3d")
+@SimpleWrapper(yarn = "net.minecraft.util.math.Vec3d", mcp = "com.mojang.math.Vector3d")
 public interface Vector3d extends HandleHolder<Vector3d> {
 
 	@SimpleField(yarn = "x", mcp = "x")

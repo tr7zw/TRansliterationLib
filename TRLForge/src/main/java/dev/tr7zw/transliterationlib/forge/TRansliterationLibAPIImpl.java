@@ -2,6 +2,7 @@ package dev.tr7zw.transliterationlib.forge;
 
 import dev.tr7zw.transliterationlib.api.TRansliterationLibAPI;
 import dev.tr7zw.transliterationlib.api.config.ConfigBuilder;
+import dev.tr7zw.transliterationlib.api.registry.ItemGroups;
 import dev.tr7zw.transliterationlib.api.registry.Keybindings;
 import dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
@@ -66,6 +67,12 @@ public class TRansliterationLibAPIImpl implements TRansliterationLibAPI {
 	@Override
 	public MinecraftClient getMinecraftClient() {
 		return client;
+	}
+
+	@Override
+	public ItemGroups getItemGroups() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

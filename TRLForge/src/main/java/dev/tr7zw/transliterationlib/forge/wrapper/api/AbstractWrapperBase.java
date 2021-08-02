@@ -4,28 +4,28 @@ import dev.tr7zw.transliterationlib.api.wrapper.api.Wrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.Entity;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity;
 import dev.tr7zw.transliterationlib.api.wrapper.model.EntityModel;
-import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
-import net.minecraft.client.renderer.entity.model.IHasArm;
-import net.minecraft.client.renderer.entity.model.PlayerModel;
-import net.minecraft.entity.item.BoatEntity;
-import net.minecraft.entity.passive.horse.HorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.model.ArmedModel;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.Boat;
 
 public abstract class AbstractWrapperBase implements Wrapper {
 
 	@Override
 	public Entity getBestMatchingEntityWrapper(Object handle) {
-		if (handle instanceof AbstractClientPlayerEntity)
+		if (handle instanceof AbstractClientPlayer)
 			return getClientPlayer().of(handle);
-		if (handle instanceof PlayerEntity)
+		if (handle instanceof Player)
 			return getPlayer().of(handle);
-		if(handle instanceof BoatEntity)
+		if(handle instanceof Boat)
 			return getBoatEntity().of(handle);
-		if(handle instanceof HorseEntity)
+		if(handle instanceof Horse)
 			return getHorseEntity().of(handle);
-		if (handle instanceof net.minecraft.entity.LivingEntity)
+		if (handle instanceof net.minecraft.world.entity.LivingEntity)
 			return getLivingEntity().of(handle);
-		if (handle instanceof net.minecraft.entity.Entity)
+		if (handle instanceof net.minecraft.world.entity.Entity)
 			return getEntity().of(handle);
 		return null;
 	}
@@ -40,10 +40,10 @@ public abstract class AbstractWrapperBase implements Wrapper {
 		if(handle instanceof PlayerModel<?>) {
 			return getPlayerEntityModel().of(handle);
 		}
-		if(handle instanceof IHasArm) {
+		if(handle instanceof ArmedModel) {
 			return getModelWithArms().of(handle);
 		}
-		if(handle instanceof net.minecraft.client.renderer.entity.model.EntityModel<?>) {
+		if(handle instanceof net.minecraft.client.model.EntityModel<?>) {
 			return getEntityModel().of(handle);
 		}
 		return null;
