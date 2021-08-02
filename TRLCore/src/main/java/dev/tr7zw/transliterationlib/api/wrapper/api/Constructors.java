@@ -1,5 +1,6 @@
 package dev.tr7zw.transliterationlib.api.wrapper.api;
 
+import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Keybind;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d;
@@ -13,5 +14,6 @@ public interface Constructors {
 	public Vector3d newVector3d(double x, double y, double z);
 	public Vector3i newVector3i(int x, int y, int z);
 	public Vector3f newVector3f(float x, float y, float z);
+	public ItemStack newItemStackFromNBT(String nbt) throws IllegalArgumentException;
 	
 }

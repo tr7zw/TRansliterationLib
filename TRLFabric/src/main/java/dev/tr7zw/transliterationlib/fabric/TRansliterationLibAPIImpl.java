@@ -2,6 +2,7 @@ package dev.tr7zw.transliterationlib.fabric;
 
 import dev.tr7zw.transliterationlib.api.TRansliterationLibAPI;
 import dev.tr7zw.transliterationlib.api.config.ConfigBuilder;
+import dev.tr7zw.transliterationlib.api.registry.ItemGroups;
 import dev.tr7zw.transliterationlib.api.registry.Keybindings;
 import dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
@@ -9,6 +10,7 @@ import dev.tr7zw.transliterationlib.api.wrapper.api.Constructors;
 import dev.tr7zw.transliterationlib.api.wrapper.api.EnumWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.Wrapper;
 import dev.tr7zw.transliterationlib.fabric.config.ConfigBuilderImpl;
+import dev.tr7zw.transliterationlib.fabric.registry.ItemGroupsImpl;
 import dev.tr7zw.transliterationlib.fabric.registry.KeybindingsImpl;
 import dev.tr7zw.transliterationlib.fabric.wrapper.TRLMinecraftClient;
 import dev.tr7zw.transliterationlib.fabric.wrapper.WrapperImpl;
@@ -21,6 +23,7 @@ public class TRansliterationLibAPIImpl implements TRansliterationLibAPI {
 
 	private final OldWrapper wrapper = new WrapperImpl();
 	private final Keybindings keybindings = new KeybindingsImpl();
+	private final ItemGroups itemgroups = new ItemGroupsImpl();
 	private final Wrapper singletonWrapper = new SingletonWrapper();
 	private final Wrapper creationWrapper = new NormalWrapper();
 	private final Constructors constructors = new ConstructorImpl(creationWrapper);
@@ -65,6 +68,11 @@ public class TRansliterationLibAPIImpl implements TRansliterationLibAPI {
 	@Override
 	public MinecraftClient getMinecraftClient() {
 		return client;
+	}
+
+	@Override
+	public ItemGroups getItemGroups() {
+		return itemgroups;
 	}
 
 }
