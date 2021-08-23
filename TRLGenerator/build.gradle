@@ -26,7 +26,7 @@ dependencies {
 	implementation group: 'net.oneandone.reflections8', name: 'reflections8', version: '0.11.5'
 
 	// https://mvnrepository.com/artifact/com.github.spullara.mustache.java/mustache.java
-	implementation group: 'com.github.spullara.mustache.java', name: 'compiler', version: '0.9.7'
+	implementation group: 'com.github.spullara.mustache.java', name: 'compiler', version: '0.9.10'
 
 	implementation 'com.google.googlejavaformat:google-java-format:1.7'
 
