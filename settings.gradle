@@ -13,6 +13,8 @@ rootProject.name = 'TRansliterationLib'
 
 include 'TRLCore'
 include 'TRLFabric'
-include 'TRLForge'
+if(build_forge == "true"){
+    include 'TRLForge'
+}
 include 'TRLCombined'
 include 'TRLGenerator'

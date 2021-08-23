@@ -9,12 +9,19 @@ configurations {
 
 
 dependencies {
-    extraLibs project(path: ":TRLForge", configuration: 'archives')
+    if(build_forge == "true"){
+        extraLibs project(path: ":TRLForge", configuration: 'archives')
+    }
     extraLibs files("../TRLFabric/build/libs/TRansliterationLib-${mod_version}.jar")
     extraLibs project(':TRLCore')
 }
 
-jar.dependsOn (':TRLFabric:build', ':TRLForge:build')
+
+jar.dependsOn (':TRLFabric:build')
+
+if(build_forge == "true"){
+    jar.dependsOn (':TRLForge:build')
+}
 
 jar {
     baseName = "TRansliterationLib-${mod_version}"
