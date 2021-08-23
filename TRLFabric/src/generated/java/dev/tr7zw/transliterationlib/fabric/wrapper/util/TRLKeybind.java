@@ -4,13 +4,13 @@ import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
 
 public class TRLKeybind
     extends AbstractWrapper<
-        net.minecraft.client.option.KeyBinding,
+        net.minecraft.client.KeyMapping,
         TRLKeybind,
         dev.tr7zw.transliterationlib.api.wrapper.util.Keybind>
     implements dev.tr7zw.transliterationlib.api.wrapper.util.Keybind {
 
   @Override
   public boolean isPressed() {
-    return handle().isPressed();
+    return handle().isDown();
   }
 }

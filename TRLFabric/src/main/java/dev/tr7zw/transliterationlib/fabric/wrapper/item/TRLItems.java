@@ -6,15 +6,16 @@ import dev.tr7zw.transliterationlib.api.wrapper.item.Item;
 import dev.tr7zw.transliterationlib.api.wrapper.item.Items;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLIdentifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
 
 public class TRLItems implements Items {
 
 	@Override
 	public Item getAir() {
-		return transliteration.creationWrapper().getItem().of(net.minecraft.item.Items.AIR);
+		return transliteration.creationWrapper().getItem().of(net.minecraft.world.item.Items.AIR);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Item getItem(Identifier id) {
 		return transliteration.creationWrapper().getItem().of(Registry.ITEM.get(((TRLIdentifier)id).handle()));

@@ -1,10 +1,11 @@
 package dev.tr7zw.transliterationlib.fabric.wrapper.entity;
 
+import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteration;
+
 import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.HandleHolder;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d;
-import net.minecraft.entity.Entity;
-import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteration;
+import net.minecraft.world.entity.Entity;
 
 public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 		extends AbstractWrapper<B, T, T>
@@ -17,7 +18,7 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 
 	@Override
 	public boolean hasVehicle() {
-		return handle().hasVehicle();
+		return handle().isPassenger();
 	}
 	
 	@Override
@@ -27,37 +28,37 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 
 	@Override
 	public float getPitch() {
-		return handle().getPitch();
+		return handle().getXRot();
 	}
 
 	@Override
 	public void setPitch(float amount) {
-		handle().setPitch(amount);
+		handle().setXRot(amount);
 	}
 
 	@Override
 	public float getYaw() {
-		return handle().getYaw();
+		return handle().getYRot();
 	}
 
 	@Override
 	public void setYaw(float amount) {
-		handle().setYaw(amount);
+		handle().setYRot(amount);
 	}
 
 	@Override
 	public Vector3d getPos() {
-		return transliteration.creationWrapper().getVector3d().of(handle().getPos());
+		return transliteration.creationWrapper().getVector3d().of(handle().position());
 	}
 
 	@Override
 	public Vector3d getVelocity() {
-		return transliteration.creationWrapper().getVector3d().of(handle().getVelocity());
+		return transliteration.creationWrapper().getVector3d().of(handle().getDeltaMovement());
 	}
 
 	@Override
 	public int getAge() {
-		return handle().age;
+		return handle().tickCount;
 	}
 	
 }

@@ -2,41 +2,44 @@ package dev.tr7zw.transliterationlib.fabric.mixins;
 
 import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteration;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.world.entity.HumanoidArm;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.tr7zw.transliterationlib.api.event.RenderEvent;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Arm;
+import dev.tr7zw.transliterationlib.api.wrapper.item.Arm;
+import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
+import dev.tr7zw.transliterationlib.api.wrapper.util.VertexConsumerProvider;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.block.model.ItemTransforms.TransformType;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
-@Mixin(HeldItemFeatureRenderer.class)
+@Mixin(ItemInHandLayer.class)
 public abstract class HeldItemFeatureRendererMixin<T extends LivingEntity, M extends EntityModel<T>>
-		extends FeatureRenderer<T, M> {
+        extends RenderLayer<T, M> {
 
-	public HeldItemFeatureRendererMixin(FeatureRendererContext<T, M> context) {
-		super(context);
-	}
+    public HeldItemFeatureRendererMixin(RenderLayerParent<T, M> renderLayerParent) {
+        super(renderLayerParent);
+    }
 
-	@Inject(at = @At("HEAD"), method = "renderItem", cancellable = true)
-	private void renderItem(LivingEntity entity, ItemStack stack, ModelTransformation.Mode transformationMode, Arm arm,
-			MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo info) {
-		RenderEvent.RENDER_HELD_ITEM.invoker().onRender(
-				transliteration.singletonWrapper().getBestMatchingLivingEntityWrapper(entity),
-				transliteration.singletonWrapper().getBestMatchingEntityModel(getContextModel()),
-				transliteration.singletonWrapper().getItemStack().of(stack),
-				transliteration.getEnumWrapper().getArm().of(arm),
-				transliteration.singletonWrapper().getMatrixStack().of(matrices),
-				transliteration.singletonWrapper().getVertexConsumerProvider().of(vertexConsumers), light, info);
-	}
+    @Inject(at = @At("HEAD"), method = "renderArmWithItem", cancellable = true)
+    private void renderArmWithItem(LivingEntity livingEntity, ItemStack itemStack, TransformType transformType, HumanoidArm humanoidArm, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci) {
+        RenderEvent.RENDER_HELD_ITEM.invoker().onRender(
+                transliteration.singletonWrapper().getBestMatchingLivingEntityWrapper(livingEntity),
+                transliteration.singletonWrapper().getBestMatchingEntityModel(this.getParentModel()),
+                transliteration.singletonWrapper().getItemStack().of(itemStack),
+                transliteration.getEnumWrapper().getArm().of(humanoidArm),
+                transliteration.singletonWrapper().getMatrixStack().of(poseStack),
+                transliteration.singletonWrapper().getVertexConsumerProvider().of(multiBufferSource), i, ci);
+    }
 
 }

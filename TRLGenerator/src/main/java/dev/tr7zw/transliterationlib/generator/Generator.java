@@ -184,19 +184,19 @@ public class Generator {
 	}
 
 	private static String getName(SimpleWrapper wrapper, Side side) {
-		return side == Side.Fabric ? wrapper.yarn() : wrapper.mcp();
+		return wrapper.mcp();
 	}
 
 	private static String getName(SimpleMethod wrapper, Side side) {
-		return side == Side.Fabric ? wrapper.yarn() : wrapper.mcp();
+		return wrapper.mcp();
 	}
 
 	private static String getName(SimpleField wrapper, Side side) {
-		return side == Side.Fabric ? wrapper.yarn() : wrapper.mcp();
+		return wrapper.mcp();
 	}
 
 	private static String getName(SimplePassthroughMethod wrapper, Side side) {
-		return side == Side.Fabric ? wrapper.yarn() : wrapper.mcp();
+		return wrapper.mcp();
 	}
 
 	private static void generateWrapperInterface(Set<WrapperTarget> wrappers) throws FormatterException, IOException {

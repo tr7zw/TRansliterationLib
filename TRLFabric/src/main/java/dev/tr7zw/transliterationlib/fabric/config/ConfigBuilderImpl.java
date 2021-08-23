@@ -11,8 +11,8 @@ import dev.tr7zw.transliterationlib.api.wrapper.WrappedScreen;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedText;
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.impl.builders.BooleanToggleBuilder;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.TextComponent;
 
 public class ConfigBuilderImpl implements ConfigBuilder {
 
@@ -31,13 +31,13 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 
 	@Override
 	public ConfigBuilder setTitle(WrappedText text) {
-		builder.setTitle(text.getHandler(Text.class));
+		builder.setTitle(text.getHandler(TextComponent.class));
 		return this;
 	}
 
 	@Override
 	public ConfigEntryBuilder entryBuilder() {
-		return new FabricConfigEntryBuilder(builder.entryBuilder());
+		return new ForgeConfigEntryBuilder(builder.entryBuilder());
 	}
 
 	@Override
@@ -54,27 +54,27 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 
 	@Override
 	public ConfigCategory getOrCreateCategory(WrappedText id) {
-		return new FabricConfigCategory(builder.getOrCreateCategory(id.getHandler(Text.class)));
+		return new ForgeConfigCategory(builder.getOrCreateCategory(id.getHandler(TextComponent.class)));
 	}
 
-	private class FabricConfigEntryBuilder implements ConfigEntryBuilder {
+	private class ForgeConfigEntryBuilder implements ConfigEntryBuilder {
 
 		private final me.shedaniel.clothconfig2.api.ConfigEntryBuilder builder;
 		
-		public FabricConfigEntryBuilder(me.shedaniel.clothconfig2.api.ConfigEntryBuilder builder) {
+		public ForgeConfigEntryBuilder(me.shedaniel.clothconfig2.api.ConfigEntryBuilder builder) {
 			this.builder = builder;
 		}
 
 		@Override
 		public <T extends Enum<?>> EnumSelectorBuilder<T> startEnumSelector(WrappedText translateableText, Class<T> type, T value) {
-			return new FabricEnumSelectorBuilder<T>(builder.startEnumSelector(translateableText.getHandler(Text.class), type, value));
+			return new ForgeEnumSelectorBuilder<T>(builder.startEnumSelector(translateableText.getHandler(TextComponent.class), type, value));
 		}
 	
-		private class FabricEnumSelectorBuilder<T extends Enum<?>> implements EnumSelectorBuilder<T>{
+		private class ForgeEnumSelectorBuilder<T extends Enum<?>> implements EnumSelectorBuilder<T>{
 
 			me.shedaniel.clothconfig2.impl.builders.EnumSelectorBuilder<T> builder;
 			
-			public FabricEnumSelectorBuilder(
+			public ForgeEnumSelectorBuilder(
 					me.shedaniel.clothconfig2.impl.builders.EnumSelectorBuilder<T> startEnumSelector) {
 				this.builder = startEnumSelector;
 			}
@@ -87,7 +87,7 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 
 			@Override
 			public EnumSelectorBuilder<T> setTooltip(WrappedText translateableText) {
-				builder.setTooltip(translateableText.getHandler(Text.class));
+				builder.setTooltip(translateableText.getHandler(TextComponent.class));
 				return this;
 			}
 
@@ -101,7 +101,7 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 			@Override
 			public EnumSelectorBuilder<T> setEnumNameProvider(
 					Function<T, WrappedText> enumNameProvider) {
-				builder.setEnumNameProvider((e) -> enumNameProvider.apply((T) e).getHandler(Text.class));
+				builder.setEnumNameProvider((e) -> enumNameProvider.apply((T) e).getHandler(TextComponent.class));
 				return this;
 			}
 
@@ -114,14 +114,14 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 
 		@Override
 		public BooleanSelectorBuilder startBooleanToggle(WrappedText translateableText, Boolean value) {
-			return new FabricBooleanSelectorBuilder(builder.startBooleanToggle(translateableText.getHandler(Text.class), value));
+			return new ForgeBooleanSelectorBuilder(builder.startBooleanToggle(translateableText.getHandler(TextComponent.class), value));
 		}
 		
-		private class FabricBooleanSelectorBuilder implements BooleanSelectorBuilder{
+		private class ForgeBooleanSelectorBuilder implements BooleanSelectorBuilder{
 
 			private BooleanToggleBuilder builder;
 			
-			public FabricBooleanSelectorBuilder(BooleanToggleBuilder builder) {
+			public ForgeBooleanSelectorBuilder(BooleanToggleBuilder builder) {
 				this.builder = builder;
 			}
 
@@ -133,7 +133,7 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 
 			@Override
 			public BooleanSelectorBuilder setTooltip(WrappedText translateableText) {
-				builder.setTooltip(translateableText.getHandler(Text.class));
+				builder.setTooltip(translateableText.getHandler(TextComponent.class));
 				return this;
 			}
 
@@ -152,14 +152,14 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 
 		@Override
 		public IntSliderBuilder startIntSlider(WrappedText translateableText, Integer value, Integer min, Integer max) {
-			return new FabricIntSliderBuilder(builder.startIntSlider(translateableText.getHandler(Text.class), value, min, max));
+			return new ForgeIntSliderBuilder(builder.startIntSlider(translateableText.getHandler(TextComponent.class), value, min, max));
 		}
 		
-		private class FabricIntSliderBuilder implements IntSliderBuilder{
+		private class ForgeIntSliderBuilder implements IntSliderBuilder{
 
 			private me.shedaniel.clothconfig2.impl.builders.IntSliderBuilder builder;
 			
-			public FabricIntSliderBuilder(me.shedaniel.clothconfig2.impl.builders.IntSliderBuilder builder) {
+			public ForgeIntSliderBuilder(me.shedaniel.clothconfig2.impl.builders.IntSliderBuilder builder) {
 				this.builder = builder;
 			}
 
@@ -171,7 +171,7 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 
 			@Override
 			public IntSliderBuilder setTooltip(WrappedText translateableText) {
-				builder.setTooltip(translateableText.getHandler(Text.class));
+				builder.setTooltip(translateableText.getHandler(TextComponent.class));
 				return this;
 			}
 
@@ -190,11 +190,11 @@ public class ConfigBuilderImpl implements ConfigBuilder {
 		
 	}
 	
-	private class FabricConfigCategory implements ConfigCategory{
+	private class ForgeConfigCategory implements ConfigCategory{
 
 		private me.shedaniel.clothconfig2.api.ConfigCategory category;
 		
-		public FabricConfigCategory(me.shedaniel.clothconfig2.api.ConfigCategory category) {
+		public ForgeConfigCategory(me.shedaniel.clothconfig2.api.ConfigCategory category) {
 			this.category = category;
 		}
 

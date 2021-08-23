@@ -6,7 +6,6 @@
 
   ],
   "client": [
-    "PlayerSkinProviderMixin",
     "AbstractClientPlayerEntityMixin",
     "DefaultSkinHelperMixin",
     "PlayerEntityMixin",

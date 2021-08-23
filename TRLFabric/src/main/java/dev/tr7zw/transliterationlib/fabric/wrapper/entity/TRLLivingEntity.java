@@ -1,13 +1,15 @@
 package dev.tr7zw.transliterationlib.fabric.wrapper.entity;
 
+import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteration;
+
+import java.util.Optional;
+
 import dev.tr7zw.transliterationlib.api.wrapper.item.Arm;
 import dev.tr7zw.transliterationlib.api.wrapper.item.Hand;
 import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i;
-import net.minecraft.entity.LivingEntity;
-import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteration;
-
-import java.util.Optional;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
 
 public class TRLLivingEntity<T extends TRLLivingEntity<T, B>, B extends LivingEntity>
 extends TRLEntity<T, B>
@@ -15,42 +17,42 @@ implements dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity {
 
 	@Override
 	public float getBodyYaw() {
-		return handle().bodyYaw;
+		return handle().yBodyRot;
 	}
 
 	@Override
 	public void setBodyYaw(float value) {
-		handle().bodyYaw = value;
+		handle().yBodyRot = value;
 	}
 
 	@Override
 	public float getPrevBodyYaw() {
-		return handle().prevBodyYaw;
+		return handle().yBodyRotO;
 	}
 
 	@Override
 	public void setPrevBodyYaw(float value) {
-		handle().prevBodyYaw = value;
+		handle().yBodyRotO = value;
 	}
 
 	@Override
 	public float getHeadYaw() {
-		return handle().headYaw;
+		return handle().yHeadRot;
 	}
 
 	@Override
 	public void setHeadYaw(float value) {
-		handle().headYaw = value;
+		handle().yHeadRot = value;
 	}
 
 	@Override
 	public float getPrevHeadYaw() {
-		return handle().prevHeadYaw;
+		return handle().yHeadRotO;
 	}
 
 	@Override
 	public void setPrevHeadYaw(float value) {
-		handle().prevHeadYaw = value;
+		handle().yHeadRotO = value;
 	}
 
 	@Override
@@ -60,7 +62,7 @@ implements dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity {
 	
 	@Override
 	public ItemStack getActiveItemStack() {
-		return transliteration.creationWrapper().getItemStack().of(handle().getActiveItem());
+		return transliteration.creationWrapper().getItemStack().of(handle().getUseItem());
 	}
 	
 	@Override
@@ -70,7 +72,7 @@ implements dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity {
 
 	@Override
 	public ItemStack getStackInHand(Hand hand) {
-		return transliteration.creationWrapper().getItemStack().of(handle().getStackInHand((net.minecraft.util.Hand)hand.getHandler()));
+		return transliteration.creationWrapper().getItemStack().of(handle().getItemInHand((InteractionHand)hand.getHandler()));
 	}
 
 	@Override
@@ -80,24 +82,24 @@ implements dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity {
 
 	@Override
 	public Hand getActiveHand() {
-		return transliteration.getEnumWrapper().getHand().of(handle().getActiveHand());
+		return transliteration.getEnumWrapper().getHand().of(handle().getUsedItemHand());
 	}
 
 	@Override
 	public int getItemUseTime() {
-		return handle().getItemUseTime();
+		return handle().getTicksUsingItem();
 	}
 
 	@Override
 	public int getItemUseTimeLeft() {
-		return handle().getItemUseTimeLeft();
+		return handle().getUseItemRemainingTicks();
 	}
 
 	@Override
 	public boolean isHandSwinging() {
-		return handle().handSwinging;
+		return handle().swinging;
 	}
-
+	
 	@Override
 	public ItemStack getOffHandStack() {
 		return getStackInHand(transliteration.getEnumWrapper().getHand().getOffHand());
@@ -110,12 +112,12 @@ implements dev.tr7zw.transliterationlib.api.wrapper.entity.LivingEntity {
 
 	@Override
 	public boolean isClimbing() {
-		return handle().isClimbing();
+		return handle().onClimbable();
 	}
 
 	@Override
 	public Optional<Vector3i> getClimbingPos() {
-		return handle().getClimbingPos().map(v -> transliteration.creationWrapper().getVector3i().of(v));
+		return handle().getLastClimbablePos().map(v -> transliteration.creationWrapper().getVector3i().of(v));
 	}
 
 

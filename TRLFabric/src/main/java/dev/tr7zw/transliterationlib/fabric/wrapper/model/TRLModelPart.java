@@ -1,7 +1,7 @@
 package dev.tr7zw.transliterationlib.fabric.wrapper.model;
 
 import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
-import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.model.geom.ModelPart;
 
 public class TRLModelPart
 		extends AbstractWrapper<ModelPart, TRLModelPart, dev.tr7zw.transliterationlib.api.wrapper.model.ModelPart>
@@ -9,32 +9,32 @@ public class TRLModelPart
 
 	@Override
 	public float getPitch() {
-		return handle().pitch;
+		return handle().xRot;
 	}
 
 	@Override
 	public float getYaw() {
-		return handle().yaw;
+		return handle().yRot;
 	}
 
 	@Override
 	public float getRoll() {
-		return handle().roll;
+		return handle().zRot;
 	}
 
 	@Override
 	public void setPitch(float value) {
-		handle().pitch = value;
+		handle().xRot = value;
 	}
 
 	@Override
 	public void setYaw(float value) {
-		handle().yaw = value;
+		handle().yRot = value;
 	}
 
 	@Override
 	public void setRoll(float value) {
-		handle().roll = value;
+		handle().zRot = value;
 	}
 
 }

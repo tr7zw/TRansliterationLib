@@ -9,16 +9,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import dev.tr7zw.transliterationlib.api.event.PlayerEvents;
 import dev.tr7zw.transliterationlib.api.wrapper.util.WrappedCallbackInfoReturnable;
-import net.minecraft.client.util.DefaultSkinHelper;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.resources.DefaultPlayerSkin;
+import net.minecraft.resources.ResourceLocation;
 
-@Mixin(DefaultSkinHelper.class)
+@Mixin(DefaultPlayerSkin.class)
 public class DefaultSkinHelperMixin {
 
-	@Inject(method = "getTexture(Ljava/util/UUID;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
-	private static Identifier getTexture(UUID uuid, CallbackInfoReturnable<Identifier> callback) {
+	@Inject(method = "getDefaultSkin(Ljava/util/UUID;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
+	private static void getTexture(UUID uuid, CallbackInfoReturnable<ResourceLocation> callback) {
 		PlayerEvents.GET_DEFAULT_SKIN.invoker().getSkin(uuid, new WrappedCallbackInfoReturnable<>(callback));
-		return null;
 	}
 
 }

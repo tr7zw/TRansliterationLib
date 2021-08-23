@@ -18,6 +18,7 @@ import dev.tr7zw.transliterationlib.fabric.wrapper.api.ConstructorImpl;
 import dev.tr7zw.transliterationlib.fabric.wrapper.api.NormalWrapper;
 import dev.tr7zw.transliterationlib.fabric.wrapper.api.SingletonWrapper;
 import dev.tr7zw.transliterationlib.fabric.wrapper.api.TRLEnumWrapper;
+import net.minecraft.client.Minecraft;
 
 public class TRansliterationLibAPIImpl implements TRansliterationLibAPI {
 
@@ -28,7 +29,7 @@ public class TRansliterationLibAPIImpl implements TRansliterationLibAPI {
 	private final Wrapper creationWrapper = new NormalWrapper();
 	private final Constructors constructors = new ConstructorImpl(creationWrapper);
 	private final EnumWrapper enumWrapper = new TRLEnumWrapper();
-	private final MinecraftClient client = new TRLMinecraftClient().of(net.minecraft.client.MinecraftClient.getInstance());
+	private final MinecraftClient client = new TRLMinecraftClient().of(Minecraft.getInstance());
 	
 	@Override
 	public OldWrapper getWrapper() {

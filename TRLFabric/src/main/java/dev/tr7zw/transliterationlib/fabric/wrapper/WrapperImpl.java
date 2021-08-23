@@ -3,6 +3,12 @@ package dev.tr7zw.transliterationlib.fabric.wrapper;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
+
 import dev.tr7zw.transliterationlib.api.config.WrappedConfigEntry;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.WrappedEntityTrackerUpdate;
@@ -17,25 +23,19 @@ import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLVertexConsumerProvide
 import me.shedaniel.clothconfig2.api.AbstractConfigEntry;
 import me.shedaniel.clothconfig2.gui.entries.EnumListEntry;
 import me.shedaniel.clothconfig2.gui.entries.IntegerSliderEntry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayer.MultiPhaseParameters;
-import net.minecraft.client.render.RenderPhase;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.FilledMapItem;
-import net.minecraft.item.map.MapState;
-import net.minecraft.network.packet.s2c.play.EntityTrackerUpdateS2CPacket;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3f;
-import net.minecraft.world.World;
+import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.MapItem;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
 public class WrapperImpl implements OldWrapper{
 
@@ -56,7 +56,7 @@ public class WrapperImpl implements OldWrapper{
 	public WrappedText wrapText(Object text) {
 		return new WrappedText() {
 			
-			private Text handler = (Text) text;
+			private TextComponent handler = (TextComponent) text;
 			
 			@Override
 			public Object getHandler() {
@@ -67,7 +67,7 @@ public class WrapperImpl implements OldWrapper{
 
 	@Override
 	public WrappedText getTranslateableText(String text) {
-		return wrapText(new TranslatableText(text));
+		return wrapText(new TranslatableComponent(text));
 	}
 
 	@Override
@@ -94,48 +94,43 @@ public class WrapperImpl implements OldWrapper{
 		};
 	}
 
-	private static final Function<Identifier, RenderLayer> textNoCull = Util.memoize(texture -> RenderLayer.of("text", VertexFormats.POSITION_COLOR_TEXTURE_LIGHT,
-			VertexFormat.DrawMode.QUADS, 256, false, true,
-			MultiPhaseParameters.builder().shader(RenderPhase.TEXT_SHADER)
-					.texture(new RenderPhase.Texture(texture, false, false)).transparency(RenderPhase.TRANSLUCENT_TRANSPARENCY)
-					.lightmap(RenderPhase.ENABLE_LIGHTMAP).cull(RenderPhase.DISABLE_CULLING).build(false)));
+	private static final Function<ResourceLocation, RenderType> textNoCull = Util.memoize(texture -> net.minecraft.client.renderer.RenderType.create("text", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
+			VertexFormat.Mode.QUADS, 256, false, true,
+			RenderType.CompositeState.builder().setShaderState(RenderStateShard.RENDERTYPE_TEXT_SHADER)
+					.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false)).setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+					.setLightmapState(RenderStateShard.LIGHTMAP).setCullState(RenderStateShard.NO_CULL).createCompositeState(false)));
 	
-	private static final RenderLayer MAP_BACKGROUND = getTextNoCull(
-			(Identifier) new Identifier("textures/map/map_background.png"));
-	private static final RenderLayer MAP_BACKGROUND_CHECKERBOARD = getTextNoCull(
-			(Identifier) new Identifier("textures/map/map_background_checkerboard.png"));
+	private static final RenderType MAP_BACKGROUND = getTextNoCull(new ResourceLocation("textures/map/map_background.png"));
+	private static final RenderType MAP_BACKGROUND_CHECKERBOARD = getTextNoCull(new ResourceLocation("textures/map/map_background_checkerboard.png"));
 	
-
-	private static RenderLayer getTextNoCull(Identifier texture) {
+	private static RenderType getTextNoCull(ResourceLocation texture) {
 		return textNoCull.apply(texture);
 	}
-
 	
-	// custom render
 	@Override
 	public void renderFirstPersonMap(MatrixStack matricesWrapped, VertexConsumerProvider vertexConsumersWrapped, int light,
 			ItemStack stack, boolean small, boolean lefthanded) {
-		net.minecraft.client.util.math.MatrixStack matrices = ((TRLMatrixStack)matricesWrapped).handle();
-		net.minecraft.client.render.VertexConsumerProvider vertexConsumers = ((TRLVertexConsumerProvider)vertexConsumersWrapped).handle();
-		MinecraftClient client = MinecraftClient.getInstance();
+		PoseStack matrices = ((TRLMatrixStack)matricesWrapped).handle();
+		MultiBufferSource vertexConsumers = ((TRLVertexConsumerProvider)vertexConsumersWrapped).handle();
+		Minecraft client = Minecraft.getInstance();
 
 		if (small) {
-			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(160.0f));
-			matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0f));
+			matrices.mulPose(Vector3f.YP.rotationDegrees(160.0f));
+			matrices.mulPose(Vector3f.ZP.rotationDegrees(180.0f));
 			matrices.scale(0.38f, 0.38f, 0.38f);
 			
 			matrices.translate(-0.1, -1.2, 0.0);
 			matrices.scale(0.0098125f, 0.0098125f, 0.0098125f);
 		} else {
 			if(lefthanded) {
-				matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(160.0f));
-				matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(150.0f));
+				matrices.mulPose(Vector3f.YP.rotationDegrees(160.0f));
+				matrices.mulPose(Vector3f.ZP.rotationDegrees(150.0f));
 				matrices.scale(0.38f, 0.38f, 0.38f);
 				
 				matrices.translate(+0.5, -1.3, 0.0);
 			} else {
-				matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(160.0f));
-				matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(210.0f));
+				matrices.mulPose(Vector3f.YP.rotationDegrees(160.0f));
+				matrices.mulPose(Vector3f.ZP.rotationDegrees(210.0f));
 				matrices.scale(0.38f, 0.38f, 0.38f);
 				
 				matrices.translate(-1.0, -1.8, 0.0);
@@ -143,24 +138,24 @@ public class WrapperImpl implements OldWrapper{
 
 			matrices.scale(0.0138125f, 0.0138125f, 0.0138125f);
 		}
-		Integer integer = FilledMapItem.getMapId(((TRLItemStack) stack).handle());
-		MapState mapState = FilledMapItem.getOrCreateMapState(((TRLItemStack) stack).handle(), (World) client.world);
-		VertexConsumer vertexConsumer = vertexConsumers
+		Integer integer = MapItem.getMapId(((TRLItemStack) stack).handle());
+		MapItemSavedData mapState = MapItem.getSavedData(((TRLItemStack) stack).handle(), client.level);
+		com.mojang.blaze3d.vertex.VertexConsumer vertexConsumer = vertexConsumers
 				.getBuffer(mapState == null ? MAP_BACKGROUND : MAP_BACKGROUND_CHECKERBOARD);
-		Matrix4f matrix4f = matrices.peek().getModel();
-		vertexConsumer.vertex(matrix4f, -7.0f, 135.0f, 0.0f).color(255, 255, 255, 255).texture(0.0f, 1.0f).light(light)
-				.next();
-		vertexConsumer.vertex(matrix4f, 135.0f, 135.0f, 0.0f).color(255, 255, 255, 255).texture(1.0f, 1.0f).light(light)
-				.next();
-		vertexConsumer.vertex(matrix4f, 135.0f, -7.0f, 0.0f).color(255, 255, 255, 255).texture(1.0f, 0.0f).light(light)
-				.next();
-		vertexConsumer.vertex(matrix4f, -7.0f, -7.0f, 0.0f).color(255, 255, 255, 255).texture(0.0f, 0.0f).light(light)
-				.next();
+		Matrix4f matrix4f = matrices.last().pose();
+		vertexConsumer.vertex(matrix4f, -7.0f, 135.0f, 0.0f).color(255, 255, 255, 255).uv(0.0f, 1.0f).uv2(light)
+				.endVertex();
+		vertexConsumer.vertex(matrix4f, 135.0f, 135.0f, 0.0f).color(255, 255, 255, 255).uv(1.0f, 1.0f).uv2(light)
+				.endVertex();
+		vertexConsumer.vertex(matrix4f, 135.0f, -7.0f, 0.0f).color(255, 255, 255, 255).uv(1.0f, 0.0f).uv2(light)
+				.endVertex();
+		vertexConsumer.vertex(matrix4f, -7.0f, -7.0f, 0.0f).color(255, 255, 255, 255).uv(0.0f, 0.0f).uv2(light)
+				.endVertex();
 		if (mapState != null) {
-			client.gameRenderer.getMapRenderer().draw(matrices, vertexConsumers, integer, mapState, false, light);
+			client.gameRenderer.getMapRenderer().render(matrices, vertexConsumers, integer, mapState, false, light);
 		}
 	}
-
+	
 	@Override
 	public boolean isChargedCrossbow(ItemStack item) {
 		return CrossbowItem.isCharged(((TRLItemStack)item).handle());
@@ -170,27 +165,27 @@ public class WrapperImpl implements OldWrapper{
 	public WrappedEntityTrackerUpdate wrapEntityTrackerUpdatePacket(Object packet) {
 		return new WrappedEntityTrackerUpdate() {
 			
-			private EntityTrackerUpdateS2CPacket etuPacket = (EntityTrackerUpdateS2CPacket) packet;
+			private ClientboundSetEntityDataPacket sPacket = (ClientboundSetEntityDataPacket) packet;
 			
 			@Override
 			public Object getHandler() {
-				return etuPacket;
+				return sPacket;
 			}
-
+			
 			@Override
 			public int id() {
-				return etuPacket.id();
+				return sPacket.getId();
 			}
-
+			
 			@Override
 			public boolean hasTrackedValues() {
-				return etuPacket.getTrackedValues() != null;
+				return sPacket.getUnpackedData() != null;
 			}
-
+			
 			@Override
 			public void forEach(BiConsumer<Integer, Object> handler) {
-				etuPacket.getTrackedValues().forEach(entry -> {
-					handler.accept(entry.getData().getId(), entry.get());
+				sPacket.getUnpackedData().forEach(entry -> {
+					handler.accept(entry.getAccessor().getId(), entry.getValue());
 				});
 			}
 		};

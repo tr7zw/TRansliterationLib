@@ -8,9 +8,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import dev.tr7zw.transliterationlib.api.TRansliterationLib;
 import dev.tr7zw.transliterationlib.api.event.PlayerEvents;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.Player;
-import net.minecraft.entity.player.PlayerEntity;
 
-@Mixin(PlayerEntity.class)
+@Mixin(net.minecraft.world.entity.player.Player.class)
 public class PlayerEntityMixin {
 
 	private Player player = TRansliterationLib.transliteration.creationWrapper().getPlayer().of(this);

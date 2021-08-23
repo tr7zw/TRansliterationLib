@@ -5,14 +5,14 @@ import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteratio
 import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.entity.ClientPlayer;
 import dev.tr7zw.transliterationlib.api.wrapper.world.World;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 
-public class TRLMinecraftClient extends AbstractWrapper<MinecraftClient, TRLMinecraftClient, dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient>
+public class TRLMinecraftClient extends AbstractWrapper<Minecraft, TRLMinecraftClient, dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient>
 implements dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient {
 
 	@Override
 	public float getTickDelta() {
-		return handle().getTickDelta();
+		return handle().getDeltaFrameTime();
 	}
 
 	@Override
@@ -22,7 +22,7 @@ implements dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient {
 
 	@Override
 	public World getWorld() {
-		return transliteration.singletonWrapper().getWorld().of(handle().world);
+		return transliteration.singletonWrapper().getWorld().of(handle().level);
 	}
 
 

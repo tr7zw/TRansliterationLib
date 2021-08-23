@@ -5,15 +5,15 @@ import dev.tr7zw.transliterationlib.api.wrapper.api.HandleHolder;
 import dev.tr7zw.transliterationlib.api.wrapper.item.Arm;
 import dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack;
 import dev.tr7zw.transliterationlib.fabric.wrapper.util.TRLMatrixStack;
-import net.minecraft.client.render.entity.model.ModelWithArms;
+import net.minecraft.client.model.ArmedModel;
+import net.minecraft.world.entity.HumanoidArm;
 
-public class TRLModelWithArms<T extends TRLModelWithArms<T, B>, B extends ModelWithArms>
-		extends AbstractWrapper<B, T, T>
+public class TRLModelWithArms<T extends TRLModelWithArms<T, B>, B extends ArmedModel> extends AbstractWrapper<B, T, T>
 		implements dev.tr7zw.transliterationlib.api.wrapper.model.ModelWithArms, HandleHolder<T> {
 
 	@Override
 	public void setArmAngle(Arm arm, MatrixStack matrix) {
-		handle().setArmAngle((net.minecraft.util.Arm) arm.getHandler(), ((TRLMatrixStack) matrix).handle());
+		handle().translateToHand((HumanoidArm) arm.getHandler(), ((TRLMatrixStack) matrix).handle());
 	}
 
 }

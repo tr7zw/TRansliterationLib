@@ -1,20 +1,21 @@
 package dev.tr7zw.transliterationlib.fabric.wrapper.item;
 
 import dev.tr7zw.transliterationlib.api.wrapper.item.UseAction;
+import net.minecraft.world.item.UseAnim;
 
 public class TRLUseAction implements UseAction {
 	
-	public static final UseAction NONE = new TRLUseAction(net.minecraft.util.UseAction.NONE);
-	public static final UseAction EAT = new TRLUseAction(net.minecraft.util.UseAction.EAT);
-	public static final UseAction DRINK = new TRLUseAction(net.minecraft.util.UseAction.DRINK);
-	public static final UseAction BLOCK = new TRLUseAction(net.minecraft.util.UseAction.BLOCK);
-	public static final UseAction BOW = new TRLUseAction(net.minecraft.util.UseAction.BOW);
-	public static final UseAction SPEAR = new TRLUseAction(net.minecraft.util.UseAction.SPEAR);
-	public static final UseAction CROSSBOW = new TRLUseAction(net.minecraft.util.UseAction.CROSSBOW);
+	public static final UseAction NONE = new TRLUseAction(UseAnim.NONE);
+	public static final UseAction EAT = new TRLUseAction(UseAnim.EAT);
+	public static final UseAction DRINK = new TRLUseAction(UseAnim.DRINK);
+	public static final UseAction BLOCK = new TRLUseAction(UseAnim.BLOCK);
+	public static final UseAction BOW = new TRLUseAction(UseAnim.BOW);
+	public static final UseAction SPEAR = new TRLUseAction(UseAnim.SPEAR);
+	public static final UseAction CROSSBOW = new TRLUseAction(UseAnim.CROSSBOW);
 	
-	private final net.minecraft.util.UseAction handle;
+	private final UseAnim handle;
 	
-	private TRLUseAction(net.minecraft.util.UseAction action) {
+	private TRLUseAction(UseAnim action) {
 		handle = action;
 	}
 	
@@ -25,12 +26,12 @@ public class TRLUseAction implements UseAction {
 
 	@Override
 	public UseAction of(Object handler) {
-		if(handler == net.minecraft.util.UseAction.BLOCK)return BLOCK;
-		if(handler == net.minecraft.util.UseAction.EAT)return EAT;
-		if(handler == net.minecraft.util.UseAction.DRINK)return DRINK;
-		if(handler == net.minecraft.util.UseAction.BOW)return BOW;
-		if(handler == net.minecraft.util.UseAction.SPEAR)return SPEAR;
-		if(handler == net.minecraft.util.UseAction.CROSSBOW)return CROSSBOW;
+		if(handler == UseAnim.BLOCK)return BLOCK;
+		if(handler == UseAnim.EAT)return EAT;
+		if(handler == UseAnim.DRINK)return DRINK;
+		if(handler == UseAnim.BOW)return BOW;
+		if(handler == UseAnim.SPEAR)return SPEAR;
+		if(handler == UseAnim.CROSSBOW)return CROSSBOW;
 		return NONE;
 	}
 
@@ -102,4 +103,5 @@ public class TRLUseAction implements UseAction {
 		return handle == null;
 	}
 
+	
 }
