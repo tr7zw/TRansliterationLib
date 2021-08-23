@@ -8,18 +8,19 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.tr7zw.transliterationlib.api.event.RenderEvent;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.PlayerModel;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.world.entity.LivingEntity;
 
 @Mixin(PlayerModel.class)
-public abstract class PlayerEntityModelMixin<T extends LivingEntity> extends BipedModel<T> {
+public abstract class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidModel<T> {
 
-	public PlayerEntityModelMixin(float scale) {
-		super(scale);
+	public PlayerEntityModelMixin(ModelPart p_170677_) {
+		super(p_170677_);
 	}
 
-	@Inject(method = "setRotationAngles", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/model/ModelRenderer;copyModelAngles(Lnet/minecraft/client/renderer/model/ModelRenderer;)V", ordinal = 0))
+	@Inject(method = "setupAnim", at = @At(value = "INVOKE"))
 	public void setAnglesEnd(T livingEntity, float f, float g, float tick, float i, float j, CallbackInfo info) {
 		RenderEvent.SET_ANGLES_END.invoker().onSet(
 				transliteration.singletonWrapper().getBestMatchingLivingEntityWrapper(livingEntity),

@@ -14,11 +14,11 @@ import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteratio
 @Mixin(PlayerEntityModel.class)
 public abstract class PlayerEntityModelMixin<T extends LivingEntity> extends BipedEntityModel<T> {
 
-	public PlayerEntityModelMixin(float scale) {
-		super(scale);
+	public PlayerEntityModelMixin() {
+		super(null);
 	}
 
-	@Inject(method = "setAngles", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelPart;copyPositionAndRotation(Lnet/minecraft/client/model/ModelPart;)V", ordinal = 0))
+	@Inject(method = "setAngles", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelPart;copyTransform(Lnet/minecraft/client/model/ModelPart;)V", ordinal = 0))
 	public void setAnglesEnd(T livingEntity, float f, float g, float tick, float i, float j, CallbackInfo info) {
 		RenderEvent.SET_ANGLES_END.invoker().onSet(
 				transliteration.singletonWrapper().getBestMatchingLivingEntityWrapper(livingEntity),

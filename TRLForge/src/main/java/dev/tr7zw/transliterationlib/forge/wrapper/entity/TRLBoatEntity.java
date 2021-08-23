@@ -1,8 +1,8 @@
 package dev.tr7zw.transliterationlib.forge.wrapper.entity;
 
-import net.minecraft.entity.item.BoatEntity;
+import net.minecraft.world.entity.vehicle.Boat;
 
-public class TRLBoatEntity<T extends TRLBoatEntity<T, B>, B extends BoatEntity>
+public class TRLBoatEntity<T extends TRLBoatEntity<T, B>, B extends Boat>
 extends TRLEntity<T, B>
 implements dev.tr7zw.transliterationlib.api.wrapper.entity.BoatEntity {
 

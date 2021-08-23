@@ -4,25 +4,25 @@ import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
 
 public class TRLMatrixStack
     extends AbstractWrapper<
-        com.mojang.blaze3d.matrix.MatrixStack,
+        com.mojang.blaze3d.vertex.PoseStack,
         TRLMatrixStack,
         dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack>
     implements dev.tr7zw.transliterationlib.api.wrapper.util.MatrixStack {
 
   @Override
-  public void push() {
-    handle().push();
+  public void pop() {
+    handle().popPose();
   }
 
   @Override
-  public void pop() {
-    handle().pop();
+  public void push() {
+    handle().pushPose();
   }
 
   @Override
   public void multiply(dev.tr7zw.transliterationlib.api.wrapper.util.Quaternion arg0) {
     handle()
-        .rotate(((dev.tr7zw.transliterationlib.forge.wrapper.util.TRLQuaternion) arg0).handle());
+        .mulPose(((dev.tr7zw.transliterationlib.forge.wrapper.util.TRLQuaternion) arg0).handle());
   }
 
   @Override

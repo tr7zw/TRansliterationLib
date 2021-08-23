@@ -12,7 +12,7 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 
 	@Override
 	public int getId() {
-		return handle().getEntityId();
+		return handle().getId();
 	}
 
 	@Override
@@ -27,22 +27,22 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 
 	@Override
 	public float getPitch() {
-		return handle().pitch;
+		return handle().getPitch();
 	}
 
 	@Override
 	public void setPitch(float amount) {
-		handle().pitch = amount;
+		handle().setPitch(amount);
 	}
 
 	@Override
 	public float getYaw() {
-		return handle().yaw;
+		return handle().getYaw();
 	}
 
 	@Override
 	public void setYaw(float amount) {
-		handle().yaw = amount;
+		handle().setYaw(amount);
 	}
 
 	@Override

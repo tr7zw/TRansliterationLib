@@ -4,7 +4,7 @@ import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
 
 public class TRLKeybind
     extends AbstractWrapper<
-        net.minecraft.client.options.KeyBinding,
+        net.minecraft.client.option.KeyBinding,
         TRLKeybind,
         dev.tr7zw.transliterationlib.api.wrapper.util.Keybind>
     implements dev.tr7zw.transliterationlib.api.wrapper.util.Keybind {

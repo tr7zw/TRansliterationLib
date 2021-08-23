@@ -1,15 +1,16 @@
 package dev.tr7zw.transliterationlib.forge.wrapper.item;
 
 import dev.tr7zw.transliterationlib.api.wrapper.item.Arm;
+import net.minecraft.world.entity.HumanoidArm;
 
 public class TRLArm implements Arm {
 
-	public static final Arm LEFT = new TRLArm(net.minecraft.util.HandSide.LEFT);
-	public static final Arm RIGHT = new TRLArm(net.minecraft.util.HandSide.RIGHT);
+	public static final Arm LEFT = new TRLArm(HumanoidArm.LEFT);
+	public static final Arm RIGHT = new TRLArm(HumanoidArm.RIGHT);
 
-	private final net.minecraft.util.HandSide handle;
+	private final HumanoidArm handle;
 
-	private TRLArm(net.minecraft.util.HandSide arm) {
+	private TRLArm(HumanoidArm arm) {
 		handle = arm;
 	}
 
@@ -35,7 +36,7 @@ public class TRLArm implements Arm {
 
 	@Override
 	public Arm of(Object val) {
-		if (val == net.minecraft.util.HandSide.LEFT) {
+		if (val == HumanoidArm.LEFT) {
 			return LEFT;
 		} else {
 			return RIGHT;

@@ -1,6 +1,7 @@
 package dev.tr7zw.transliterationlib.api;
 
 import dev.tr7zw.transliterationlib.api.config.ConfigBuilder;
+import dev.tr7zw.transliterationlib.api.registry.ItemGroups;
 import dev.tr7zw.transliterationlib.api.registry.Keybindings;
 import dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
@@ -20,6 +21,8 @@ public interface TRansliterationLibAPI {
 	public ConfigBuilder getNewConfigBuilder();
 	
 	public Keybindings getKeybindings();
+	
+	public ItemGroups getItemGroups();
 	
 	public Constructors constructors();
 	

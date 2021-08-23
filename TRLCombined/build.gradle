@@ -11,6 +11,7 @@ configurations {
 dependencies {
     extraLibs project(path: ":TRLForge", configuration: 'archives')
     extraLibs files("../TRLFabric/build/libs/TRansliterationLib-${mod_version}.jar")
+    extraLibs project(':TRLCore')
 }
 
 jar.dependsOn (':TRLFabric:build', ':TRLForge:build')

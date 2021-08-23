@@ -18,8 +18,8 @@ public class PlayerSkinProviderMixin {
 	@Shadow
 	private MinecraftSessionService sessionService;
 	
-	@Inject(method =  "loadProfileTextures", at = @At("HEAD"), cancellable = true)
-	public void loadSkin(GameProfile profile, SkinManager.ISkinAvailableCallback callback, boolean requireSecure, CallbackInfo info) {
+	@Inject(method =  "registerSkins", at = @At("HEAD"), cancellable = true)
+	public void loadSkin(GameProfile profile, SkinManager.SkinTextureCallback callback, boolean requireSecure, CallbackInfo info) {
 		PlayerEvents.SKIN_RESOLVE.invoker().onSkinResolve(sessionService, profile, requireSecure, info);
 	}
 	

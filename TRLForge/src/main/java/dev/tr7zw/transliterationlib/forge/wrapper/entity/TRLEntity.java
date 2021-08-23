@@ -1,10 +1,11 @@
 package dev.tr7zw.transliterationlib.forge.wrapper.entity;
 
+import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteration;
+
 import dev.tr7zw.transliterationlib.api.wrapper.api.AbstractWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.HandleHolder;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d;
-import net.minecraft.entity.Entity;
-import static dev.tr7zw.transliterationlib.api.TRansliterationLib.transliteration;
+import net.minecraft.world.entity.Entity;
 
 public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 		extends AbstractWrapper<B, T, T>
@@ -12,7 +13,7 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 
 	@Override
 	public int getId() {
-		return handle().getEntityId();
+		return handle().getId();
 	}
 
 	@Override
@@ -22,42 +23,42 @@ public class TRLEntity<T extends TRLEntity<T, B>, B extends Entity>
 	
 	@Override
 	public dev.tr7zw.transliterationlib.api.wrapper.entity.Entity getVehicle() {
-		return transliteration.creationWrapper().getBestMatchingEntityWrapper(handle().getRidingEntity());
+		return transliteration.creationWrapper().getBestMatchingEntityWrapper(handle().getVehicle());
 	}
 
 	@Override
 	public float getPitch() {
-		return handle().rotationPitch;
+		return handle().getXRot();
 	}
 
 	@Override
 	public void setPitch(float amount) {
-		handle().rotationPitch = amount;
+		handle().setXRot(amount);
 	}
 
 	@Override
 	public float getYaw() {
-		return handle().rotationYaw;
+		return handle().getYRot();
 	}
 
 	@Override
 	public void setYaw(float amount) {
-		handle().rotationYaw = amount;
+		handle().setYRot(amount);
 	}
 
 	@Override
 	public Vector3d getPos() {
-		return transliteration.creationWrapper().getVector3d().of(handle().getPositionVec());
+		return transliteration.creationWrapper().getVector3d().of(handle().position());
 	}
 
 	@Override
 	public Vector3d getVelocity() {
-		return transliteration.creationWrapper().getVector3d().of(handle().getMotion());
+		return transliteration.creationWrapper().getVector3d().of(handle().getDeltaMovement());
 	}
 
 	@Override
 	public int getAge() {
-		return handle().ticksExisted;
+		return handle().tickCount;
 	}
 	
 }

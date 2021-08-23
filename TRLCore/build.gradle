@@ -27,6 +27,16 @@ dependencies {
 
 sourceSets.main.java.srcDirs = ['src/generated/java','src/main/java']
 
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
+}
+
+tasks.named('jar') {
+    manifest {
+        attributes('Automatic-Module-Name': 'org.gradle.sample')
+    }
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {

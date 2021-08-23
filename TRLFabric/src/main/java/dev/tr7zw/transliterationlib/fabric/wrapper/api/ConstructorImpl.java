@@ -1,13 +1,19 @@
 package dev.tr7zw.transliterationlib.fabric.wrapper.api;
 
+import com.mojang.brigadier.StringReader;
+
 import dev.tr7zw.transliterationlib.api.wrapper.api.Constructors;
 import dev.tr7zw.transliterationlib.api.wrapper.api.Wrapper;
+import dev.tr7zw.transliterationlib.api.wrapper.item.ItemStack;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Identifier;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Keybind;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3d;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3f;
 import dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.StringNbtReader;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.math.Vec3i;
 
 public class ConstructorImpl implements Constructors{
@@ -40,7 +46,16 @@ public class ConstructorImpl implements Constructors{
 
 	@Override
 	public Vector3f newVector3f(float x, float y, float z) {
-		return wrapper.getVector3f().of(new net.minecraft.client.util.math.Vector3f(x, y, z));
+		return wrapper.getVector3f().of(new Vec3f(x, y, z));
+	}
+
+	@Override
+	public ItemStack newItemStackFromNBT(String nbt) throws IllegalArgumentException {
+		try {
+			return wrapper.getItemStack().of(net.minecraft.item.ItemStack.fromNbt(StringNbtReader.parse(nbt)));
+		}catch(Exception ex) {
+			throw new IllegalArgumentException(ex);
+		}
 	}
 
 }

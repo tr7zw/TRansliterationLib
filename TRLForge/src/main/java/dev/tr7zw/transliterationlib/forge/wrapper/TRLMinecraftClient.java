@@ -12,7 +12,7 @@ implements dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient {
 
 	@Override
 	public float getTickDelta() {
-		return handle().getTickLength();
+		return handle().getDeltaFrameTime();
 	}
 
 	@Override
@@ -22,7 +22,7 @@ implements dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient {
 
 	@Override
 	public World getWorld() {
-		return transliteration.singletonWrapper().getWorld().of(handle().world);
+		return transliteration.singletonWrapper().getWorld().of(handle().level);
 	}
 
 
