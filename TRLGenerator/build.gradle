@@ -21,7 +21,7 @@ dependencies {
 	compileOnly group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
 	compileOnly group: 'com.mojang', name: 'authlib', version: '1.5.25'
 	// https://mvnrepository.com/artifact/org.spongepowered/mixin
-	compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.3', transitive:false
+	compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.4', transitive:false
 	
 	implementation group: 'net.oneandone.reflections8', name: 'reflections8', version: '0.11.7'
 
