@@ -100,7 +100,7 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    implementation 'org.spongepowered:mixin:0.8.3'
+    implementation 'org.spongepowered:mixin:0.8.4'
     annotationProcessor 'org.spongepowered:mixin:0.8.3:processor'
     implementation (fg.deobf("me.shedaniel.cloth:cloth-config-forge:5.0.38"))
     extraLibs (("me.shedaniel.cloth:cloth-config-forge:5.0.37"))
