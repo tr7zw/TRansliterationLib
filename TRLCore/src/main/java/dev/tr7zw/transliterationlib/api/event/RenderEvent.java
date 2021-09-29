@@ -39,5 +39,17 @@ public class RenderEvent {
 		void onRender(LivingEntity entity, EntityModel model, ItemStack stack, Arm arm, MatrixStack matrixStack,
 				VertexConsumerProvider vertexConsumer, int light, CallbackInfo info);
 	}
+	
+	public static final TREvent<StartRenderEvent> START_RENDER = TREventFactory.createArrayBacked(StartRenderEvent.class,
+			callbacks -> () -> {
+				for (StartRenderEvent callback : callbacks) {
+					callback.onRender();
+				}
+			});
+
+	@FunctionalInterface
+	public interface StartRenderEvent {
+		void onRender();
+	}
 
 }
