@@ -15,10 +15,9 @@ import net.minecraft.resources.ResourceLocation;
 @Mixin(DefaultPlayerSkin.class)
 public class DefaultSkinHelperMixin {
 
-	@Inject(method = "getDefaultSkin", at = @At("HEAD"), cancellable = true)
-	private static ResourceLocation getTexture(UUID uuid, CallbackInfoReturnable<ResourceLocation> callback) {
+	@Inject(method = "getDefaultSkin(Ljava/util/UUID;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
+	private static void getTexture(UUID uuid, CallbackInfoReturnable<ResourceLocation> callback) {
 		PlayerEvents.GET_DEFAULT_SKIN.invoker().getSkin(uuid, new WrappedCallbackInfoReturnable<>(callback));
-		return null;
 	}
 
 }

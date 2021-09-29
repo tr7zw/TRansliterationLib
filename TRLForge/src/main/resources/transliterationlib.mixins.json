@@ -2,9 +2,8 @@
   "required": true,
   "package": "dev.tr7zw.transliterationlib.forge.mixins",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "transliterationlib.forge.refmap.json",
+  "refmap": "transliterationlib-TRLForge-refmap.json",
   "mixins": [
-    "PlayerSkinProviderMixin",
     "AbstractClientPlayerEntityMixin",
     "DefaultSkinHelperMixin",
     "PlayerEntityMixin",

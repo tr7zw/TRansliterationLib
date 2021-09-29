@@ -16,12 +16,12 @@ import net.minecraft.world.entity.LivingEntity;
 @Mixin(PlayerModel.class)
 public abstract class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidModel<T> {
 
-	public PlayerEntityModelMixin(ModelPart p_170677_) {
-		super(p_170677_);
+	public PlayerEntityModelMixin() {
+		super(null);
 	}
 
-	@Inject(method = "setupAnim", at = @At(value = "INVOKE"))
-	public void setAnglesEnd(T livingEntity, float f, float g, float tick, float i, float j, CallbackInfo info) {
+	@Inject(method = "setupAnim", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/ModelPart;copyFrom(Lnet/minecraft/client/model/geom/ModelPart;)V", ordinal = 0))
+	public void setupAnim(T livingEntity, float f, float g, float tick, float i, float j, CallbackInfo info) {
 		RenderEvent.SET_ANGLES_END.invoker().onSet(
 				transliteration.singletonWrapper().getBestMatchingLivingEntityWrapper(livingEntity),
 				transliteration.singletonWrapper().getPlayerEntityModel().of(this), tick, info);

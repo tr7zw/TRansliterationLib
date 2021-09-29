@@ -94,18 +94,19 @@ public class WrapperImpl implements OldWrapper{
 		};
 	}
 
+	private static final Function<ResourceLocation, RenderType> textNoCull = Util.memoize(texture -> net.minecraft.client.renderer.RenderType.create("text", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
+			VertexFormat.Mode.QUADS, 256, false, true,
+			RenderType.CompositeState.builder().setShaderState(RenderStateShard.RENDERTYPE_TEXT_SHADER)
+					.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false)).setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+					.setLightmapState(RenderStateShard.LIGHTMAP).setCullState(RenderStateShard.NO_CULL).createCompositeState(false)));
+	
+	
 	private static final RenderType MAP_BACKGROUND = getTextNoCull(new ResourceLocation("textures/map/map_background.png"));
 	private static final RenderType MAP_BACKGROUND_CHECKERBOARD = getTextNoCull(new ResourceLocation("textures/map/map_background_checkerboard.png"));
 	
 	private static RenderType getTextNoCull(ResourceLocation texture) {
 		return textNoCull.apply(texture);
 	}
-	
-	private static final Function<ResourceLocation, RenderType> textNoCull = Util.memoize(texture -> net.minecraft.client.renderer.RenderType.create("text", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
-			VertexFormat.Mode.QUADS, 256, false, true,
-			RenderType.CompositeState.builder().setShaderState(RenderStateShard.RENDERTYPE_TEXT_SHADER)
-					.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false)).setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
-					.setLightmapState(RenderStateShard.LIGHTMAP).setCullState(RenderStateShard.NO_CULL).createCompositeState(false)));
 	
 	@Override
 	public void renderFirstPersonMap(MatrixStack matricesWrapped, VertexConsumerProvider vertexConsumersWrapped, int light,

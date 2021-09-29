@@ -5,12 +5,14 @@ import dev.tr7zw.transliterationlib.api.config.ConfigBuilder;
 import dev.tr7zw.transliterationlib.api.registry.ItemGroups;
 import dev.tr7zw.transliterationlib.api.registry.Keybindings;
 import dev.tr7zw.transliterationlib.api.wrapper.MinecraftClient;
+import dev.tr7zw.transliterationlib.api.wrapper.ModLoaderWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.OldWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.Constructors;
 import dev.tr7zw.transliterationlib.api.wrapper.api.EnumWrapper;
 import dev.tr7zw.transliterationlib.api.wrapper.api.Wrapper;
 import dev.tr7zw.transliterationlib.forge.config.ConfigBuilderImpl;
 import dev.tr7zw.transliterationlib.forge.registry.KeybindingsImpl;
+import dev.tr7zw.transliterationlib.forge.wrapper.ModLoaderWrapperForge;
 import dev.tr7zw.transliterationlib.forge.wrapper.TRLMinecraftClient;
 import dev.tr7zw.transliterationlib.forge.wrapper.WrapperImpl;
 import dev.tr7zw.transliterationlib.forge.wrapper.api.ConstructorImpl;
@@ -28,6 +30,7 @@ public class TRansliterationLibAPIImpl implements TRansliterationLibAPI {
 	private final Constructors constructors = new ConstructorImpl(creationWrapper);
 	private final EnumWrapper enumWrapper = new TRLEnumWrapper();
 	private final MinecraftClient client = new TRLMinecraftClient().of(Minecraft.getInstance());
+	private final ModLoaderWrapper modLoader = new ModLoaderWrapperForge();
 	
 	@Override
 	public OldWrapper getWrapper() {
@@ -73,6 +76,11 @@ public class TRansliterationLibAPIImpl implements TRansliterationLibAPI {
 	public ItemGroups getItemGroups() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ModLoaderWrapper getModLoaderWrapper() {
+		return modLoader;
 	}
 
 }

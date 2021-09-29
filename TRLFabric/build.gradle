@@ -23,7 +23,7 @@ configurations {
     extraLibs
 }
 
-minecraft {
+loom {
 	accessWidenerPath = file("src/main/resources/transliteration.accesswidener")
 }
 
