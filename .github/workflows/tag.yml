@@ -32,5 +32,5 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-          TRLFabric/build/libs/*.jar
-          TRLForge/build/libs/*.jar
+            TRLFabric/build/libs/*.jar
+            TRLForge/build/libs/*.jar
