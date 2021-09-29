@@ -6,9 +6,10 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "dev.architectury.loom"
 
-version = "${version}-${minecraft_version}"
+version = "${mod_version}-${minecraft_version}"
 group = "dev.tr7zw.forge.${modid}"
-archivesBaseName = "${modid}"
+archivesBaseName = "${archives_base_name}-forge"
+group = project.maven_group
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 

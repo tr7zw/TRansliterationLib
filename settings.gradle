@@ -23,5 +23,4 @@ include 'TRLFabric'
 if(build_forge == "true"){
     include 'TRLForge'
 }
-include 'TRLCombined'
 include 'TRLGenerator'
