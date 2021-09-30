@@ -29,7 +29,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -56,7 +56,7 @@ public class WrapperImpl implements OldWrapper{
 	public WrappedText wrapText(Object text) {
 		return new WrappedText() {
 			
-			private TextComponent handler = (TextComponent) text;
+			private BaseComponent handler = (BaseComponent) text;
 			
 			@Override
 			public Object getHandler() {
