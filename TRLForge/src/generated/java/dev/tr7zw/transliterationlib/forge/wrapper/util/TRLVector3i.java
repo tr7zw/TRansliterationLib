@@ -10,6 +10,11 @@ public class TRLVector3i
     implements dev.tr7zw.transliterationlib.api.wrapper.util.Vector3i {
 
   @Override
+  public int getY() {
+    return handle().getY();
+  }
+
+  @Override
   public int getX() {
     return handle().getX();
   }
@@ -17,10 +22,5 @@ public class TRLVector3i
   @Override
   public int getZ() {
     return handle().getZ();
-  }
-
-  @Override
-  public int getY() {
-    return handle().getY();
   }
 }
